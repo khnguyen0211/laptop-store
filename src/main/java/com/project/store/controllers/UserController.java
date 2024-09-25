@@ -12,7 +12,7 @@ import com.project.store.services.UserService;
 @Controller()
 public class UserController {
 
-    private UserService userService;
+    private final UserService userService;
 
     public UserController(UserService userService) {
         this.userService = userService;
@@ -20,7 +20,7 @@ public class UserController {
 
     @RequestMapping("")
     public String requestMethodName(Model model) {
-        model.addAttribute("fullName", "Khoi Nguyen");
+        model.addAttribute("fullName", "Nguyen");
         return "hello";
     }
 
