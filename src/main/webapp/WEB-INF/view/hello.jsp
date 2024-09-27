@@ -5,7 +5,7 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>Hello world from JSP</h1>
-    <h2>${fullName}</h2>
+    <h1>Laptop Store is builded by Spring MVC</h1>
+    <h2>Author by ${fullName}</h2>
 </body>
 </html>

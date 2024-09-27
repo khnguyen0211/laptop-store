@@ -30,46 +30,54 @@ public class UserController {
         return "hello";
     }
 
-    @RequestMapping("admin/users/create")
+    @RequestMapping("admin/user/create")
     public String getCreateUserPage(Model model) {
         model.addAttribute("createUser", new User());
-        return "admin/users/create";
+        return "admin/user/create";
     }
 
-    @RequestMapping("admin/users")
+    @RequestMapping("admin/user")
     public String getAllUserPage(Model model) {
         List<User> users = this.userService.handleGetAllUser();
         model.addAttribute("users", users);
-        return "admin/users/table-user";
+        return "admin/user/table-user";
     }
 
-    @RequestMapping("admin/users/{id}")
+    @RequestMapping("admin/user/{id}")
     public String getUserDetailPage(Model model, @PathVariable("id") long id) {
         Optional<User> optionalUser = this.userService.handleGetUserDetailById(id);
         if (!optionalUser.isPresent()) {
             return null;
         }
         model.addAttribute("user", optionalUser.get());
-        System.out.println(optionalUser.get());
-        return "hello";
+        return "admin/user/detail";
     }
 
-    @GetMapping(value = "admin/users/update/{id}")
+    @GetMapping(value = "admin/user/update/{id}")
     public String updateUserDetailPage(Model model, @PathVariable("id") long id) {
         Optional<User> optionalUser = this.userService.handleGetUserDetailById(id);
         if (optionalUser.isPresent()) {
             model.addAttribute("updateUser", optionalUser.get());
         }
-        return "admin/users/update";
+        return "admin/user/update";
     }
 
-    @RequestMapping(value = "admin/users/created", method = RequestMethod.POST)
+    @GetMapping(value = "admin/user/delete/{id}")
+    public String deleteUser(Model model, @PathVariable("id") long id) {
+        Optional<User> optionalUser = this.userService.handleGetUserDetailById(id);
+        if (optionalUser.isPresent()) {
+            this.userService.handleDeleteUser(id);
+        }
+        return "redirect:/admin/user";
+    }
+
+    @RequestMapping(value = "admin/user/created", method = RequestMethod.POST)
     public String postUserPage(Model model, @ModelAttribute("createUser") User createUser) {
         this.userService.handleSaveUser(createUser);
-        return "redirect:/admin/users"; //return to url-(API) render table. NOT return name file
+        return "redirect:/admin/user"; //return to url-(API) render table. NOT return name file
     }
 
-    @PostMapping(value = "admin/users/updated")
+    @PostMapping(value = "admin/user/updated")
     public String updateUserPage(Model model, @ModelAttribute("updateUser") User updateUser) {
         Optional<User> optionalUser = this.userService.handleGetUserDetailById(updateUser.getId());
         if (optionalUser.isPresent()) {
@@ -80,7 +88,7 @@ public class UserController {
             user.setPhone(updateUser.getPhone());
             this.userService.handleUpdateUser(user);
         }
-        return "redirect:/admin/users";
+        return "redirect:/admin/user";
     }
 
 }
