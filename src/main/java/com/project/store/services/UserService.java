@@ -1,5 +1,8 @@
 package com.project.store.services;
 
+import java.util.List;
+import java.util.Optional;
+
 import org.springframework.stereotype.Service;
 
 import com.project.store.domain.User;
@@ -15,6 +18,18 @@ public class UserService {
     }
 
     public User handleSaveUser(User user) {
+        return this.userRepository.save(user);
+    }
+
+    public List<User> handleGetAllUser() {
+        return this.userRepository.findAll();
+    }
+
+    public Optional<User> handleGetUserDetailById(long id) {
+        return this.userRepository.findById(id);
+    }
+
+    public User handleUpdateUser(User user) {
         return this.userRepository.save(user);
     }
 
