@@ -10,6 +10,8 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "users")
@@ -18,11 +20,23 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private String email;
-    private String password;
+
+    @NotEmpty(message = "Full name cannot be empty")
+    @Size(min = 5, message = "Full name must be greater than or equal to 5 characters")
+    // @Min(5) //Use to compare integer, ex: min = 5, field must has value = 10 (10 > 5)
     private String fullName;
+
+    @NotEmpty(message = "Email cannot be empty")
+    private String email;
+
+    @NotEmpty(message = "Password cannot be empty")
+    private String password;
+
     private String address;
+
+    @NotEmpty(message = "Phone number cannot be empty")
     private String phone;
+    private String avatar;
 
     @ManyToOne()
     @JoinColumn(name = "role_id")
@@ -99,6 +113,14 @@ public class User {
 
     public void setOrders(List<Order> orders) {
         this.orders = orders;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 
 }

@@ -32,7 +32,7 @@
                                         <div class="col-md-6 col-12 mx-auto">
                                             <h3>Update a user</h3>
                                             <hr />
-                                            <form:form method="post" action="/admin/users/updated"
+                                            <form:form method="post" action="/admin/user/update"
                                                 modelAttribute="updateUser">
                                                 <div class="mb-3" style="display: none;">
                                                     <label class="form-label">Id:</label>
@@ -42,10 +42,6 @@
                                                     <label class="form-label">Email:</label>
                                                     <form:input type="email" class="form-control" path="email" />
                                                 </div>
-                                                <!-- <div class="mb-3">
-                                                                                    <label class="form-label">Password:</label>
-                                                                                    <form:input type="password" class="form-control" path="password" />
-                                                                                </div> -->
                                                 <div class="mb-3">
                                                     <label class="form-label">Phone number:</label>
                                                     <form:input type="text" class="form-control" path="phone" />

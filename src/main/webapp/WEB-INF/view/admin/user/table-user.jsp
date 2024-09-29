@@ -40,8 +40,8 @@
                                                 <thead>
                                                     <tr>
                                                         <th>ID</th>
-                                                        <th>Email</th>
                                                         <th>Full Name</th>
+                                                        <th>Email</th>
                                                         <th>Phone Number</th>
                                                         <th>Action</th>
                                                     </tr>

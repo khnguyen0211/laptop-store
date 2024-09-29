@@ -22,7 +22,7 @@ public class UserService {
     }
 
     public List<User> handleGetAllUser() {
-        return this.userRepository.findAll();
+        return this.userRepository.findAllByOrderByIdDesc();
     }
 
     public Optional<User> handleGetUserDetailById(long id) {
