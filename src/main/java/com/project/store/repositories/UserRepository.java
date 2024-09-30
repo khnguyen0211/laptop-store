@@ -11,4 +11,7 @@ import com.project.store.domain.User;
 public interface UserRepository extends JpaRepository<User, Long> {
 
     List<User> findAllByOrderByIdDesc();
+
+    boolean existsByEmail(String email);
+
 }

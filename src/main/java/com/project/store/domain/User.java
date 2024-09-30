@@ -2,6 +2,8 @@ package com.project.store.domain;
 
 import java.util.List;
 
+import com.project.store.validators.StrongPassword;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -21,8 +23,8 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @NotEmpty(message = "Full name cannot be empty")
-    @Size(min = 5, message = "Full name must be greater than or equal to 5 characters")
+    @NotEmpty(message = "Full Name cannot be empty")
+    @Size(min = 5, message = "Full Name must be greater than or equal to 5 characters")
     // @Min(5) //Use to compare integer, ex: min = 5, field must has value = 10 (10 > 5)
     private String fullName;
 
@@ -30,12 +32,14 @@ public class User {
     private String email;
 
     @NotEmpty(message = "Password cannot be empty")
+    @StrongPassword()
     private String password;
 
     private String address;
 
-    @NotEmpty(message = "Phone number cannot be empty")
+    @NotEmpty(message = "Phone Number cannot be empty")
     private String phone;
+
     private String avatar;
 
     @ManyToOne()

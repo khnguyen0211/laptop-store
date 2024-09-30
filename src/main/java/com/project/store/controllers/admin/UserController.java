@@ -48,6 +48,30 @@ public class UserController {
         return "admin/user/create";
     }
 
+    @PostMapping(value = "admin/user/create")
+    public String postUserPage(
+            @ModelAttribute("createUser") @Valid User createUser,
+            BindingResult createUserBindingResult,
+            @RequestParam("hoidanitFile") MultipartFile file
+    ) {
+
+        List<FieldError> errors = createUserBindingResult.getFieldErrors();
+        for (FieldError errorField : errors) {
+            System.out.println("error at: " + errorField.getField() + ", message: " + errorField.getDefaultMessage());
+        }
+        if (createUserBindingResult.hasErrors()) {
+            return "/admin/user/create";
+        }
+        String targetFolder = "avatar";
+        String fileName = this.fileService.handleUploadFile(file, targetFolder);
+        Role role = this.roleService.handleGetRoleByName(createUser.getRole().getName());
+        createUser.setRole(role);
+        createUser.setAvatar(fileName);
+        createUser.setPassword(this.passwordEncoder.encode(createUser.getPassword()));
+        this.userService.handleSaveUser(createUser);
+        return "redirect:/admin/user"; //return to url-(API) render table. NOT return name file
+    }
+
     @GetMapping("admin/user")
     public String getAllUserPage(Model model) {
         List<User> users = this.userService.handleGetAllUser();
@@ -81,33 +105,6 @@ public class UserController {
             this.userService.handleDeleteUser(id);
         }
         return "redirect:/admin/user";
-    }
-
-    @PostMapping(value = "admin/user/create")
-    public String postUserPage(
-            @ModelAttribute("createUser") @Valid User createUser,
-            BindingResult createUserBindingResult,
-            @RequestParam("hoidanitFile") MultipartFile file
-    ) {
-
-        List<FieldError> errors = createUserBindingResult.getFieldErrors();
-        for (FieldError errorField : errors) {
-            System.out.println("error at: " + errorField.getField() + ", message: " + errorField.getDefaultMessage());
-        }
-
-        if (createUserBindingResult.hasErrors()) {
-            return "/admin/user/create";
-        }
-
-        String targetFolder = "avatar";
-        String fileName = this.fileService.handleUploadFile(file, targetFolder);
-        Role role = this.roleService.handleGetRoleByName(createUser.getRole().getName());
-        createUser.setRole(role);
-        createUser.setAvatar(fileName);
-        createUser.setPassword(this.passwordEncoder.encode(createUser.getPassword()));
-        this.userService.handleSaveUser(createUser);
-
-        return "redirect:/admin/user"; //return to url-(API) render table. NOT return name file
     }
 
     @PostMapping(value = "admin/user/update")
