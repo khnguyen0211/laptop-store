@@ -110,8 +110,8 @@
                                                     <i class="fa fa-address-book"></i>
                                                 </span>
                                             </div>
-                                            <input type="text" class="form-control rounded-left" placeholder="Address"
-                                                path="address>
+                                            <form:input type="text" class="form-control rounded-left"
+                                                placeholder="Address" path="address" />
                                         </div>
 
 
@@ -140,6 +140,95 @@
                     </div>
                 </section>
 
-            </body>
+
+
+                <style>
+                    /* Tùy chỉnh modal */
+                    .modal-header {
+                        background-color: #a0c334;
+                        color: white;
+                        border-bottom: none;
+                    }
+
+                    .modal-title {
+                        font-weight: bold;
+                    }
+
+                    .modal-body {
+                        font-size: 16px;
+                        padding: 20px;
+                    }
+
+                    .modal-content {
+                        border-radius: 10px;
+                        border: none;
+                    }
+
+                    .modal-footer {
+                        border-top: none;
+                    }
+
+                    /* Nút đóng */
+                    .close {
+                        color: white;
+                        opacity: 1;
+                    }
+
+                    .close:hover {
+                        color: #333;
+                    }
+
+                    /* Điều chỉnh nút đóng */
+                    .close span {
+                        font-size: 24px;
+                    }
+                </style>
+                </head>
+
+                <body>
+
+                    <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content" style="border-radius: 10px; border: none;">
+                                <div class="modal-header"
+                                    style="background-color: #a0c334; color: white; border-bottom: none;">
+                                    <h5 class="modal-title" id="exampleModalLabel" style="font-weight: bold;">Success
+                                    </h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"
+                                        style="color: white; opacity: 1;">
+                                        <span aria-hidden="true" style="font-size: 24px;">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body" style="font-size: 16px; padding: 20px;">
+                                    Your registration was successful! You will be redirected to the login page in a few
+                                    seconds.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Bootstrap và jQuery -->
+                    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+                    <script
+                        src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+
+                    <!-- Hiển thị modal nếu success = true -->
+                    <script type="text/javascript">
+                        $(document).ready(function () {
+                            // Kiểm tra giá trị success từ EL
+                            var isSuccess = "${ success ?'true': 'false'}";
+
+                            if (isSuccess === 'true') {
+                                // Hiển thị modal
+                                $('#successModal').modal('show');
+                                // Sau 3 giây, chuyển sang trang đăng nhập
+                                setTimeout(function () {
+                                    window.location.href = '/login';
+                                }, 3000);
+                            }
+                        });
+                    </script>
+                </body>
 
             </html>

@@ -2,7 +2,8 @@ package com.project.store.domain;
 
 import java.util.List;
 
-import com.project.store.validators.StrongPassword;
+import com.project.store.constants.Constant;
+import com.project.store.domain.dtos.RegisterDto;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -32,7 +33,7 @@ public class User {
     private String email;
 
     @NotEmpty(message = "Password cannot be empty")
-    @StrongPassword()
+    // @StrongPassword()
     private String password;
 
     private String address;
@@ -40,14 +41,26 @@ public class User {
     @NotEmpty(message = "Phone Number cannot be empty")
     private String phone;
 
-    private String avatar;
-
+    private String avatar = Constant.DEFAULT_AVATAR;
+    
     @ManyToOne()
     @JoinColumn(name = "role_id")
     private Role role;
 
     @OneToMany(mappedBy = "user")
     private List<Order> orders;
+
+    public User() {
+    }
+
+    public User(RegisterDto registerDto) {
+        this.fullName = registerDto.getFullName();
+        this.email = registerDto.getEmail();
+        this.password = registerDto.getPassword();
+        this.phone = registerDto.getPhone();
+        this.address = registerDto.getAddress();
+        this.role = registerDto.getRole();
+    }
 
     public void setId(long id) {
         this.id = id;
