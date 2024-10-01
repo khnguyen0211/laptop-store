@@ -1,12 +1,9 @@
 package com.project.store.controllers.client;
 
-import java.util.List;
-
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,24 +30,10 @@ public class AuthController {
         this.roleService = roleService;
     }
 
-    @GetMapping(value = "login")
+    @GetMapping(value = "/login")
     public String getLoginPage(Model model) {
-        model.addAttribute("loginUser", new User());
-        return "/client/auth/login";
+        return "client/auth/loginPage";
 
-    }
-
-    @PostMapping(value = "login")
-    public String loginAction(@ModelAttribute("loginUser") @Valid User loginUser,
-            BindingResult createUserBindingResult) {
-        List<FieldError> errors = createUserBindingResult.getFieldErrors();
-        for (FieldError errorField : errors) {
-            System.out.println("error at: " + errorField.getField() + ", message: " + errorField.getDefaultMessage());
-        }
-        if (createUserBindingResult.hasErrors()) {
-            return "/client/auth/login";
-        }
-        return "/client/homepage/homepage";
     }
 
     @GetMapping(value = "register")
@@ -65,7 +48,7 @@ public class AuthController {
         if (createUserBindingResult.hasErrors()) {
             return "/client/auth/register";
         }
-        Role role = this.roleService.handleGetRoleByName(Constant.DEFAULT_ROLE);
+        Role role = this.roleService.handleGetRoleByName(Constant.USER_ROLE);
         registerDto.setPassword(this.passwordEncoder.encode(registerDto.getPassword()));
         registerDto.setRole(role);
         this.userService.handleSaveUser(new User(registerDto));
