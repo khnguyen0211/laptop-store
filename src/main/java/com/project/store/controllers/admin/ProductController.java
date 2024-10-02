@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.project.store.domain.Product;
@@ -37,5 +38,14 @@ public class ProductController {
     public String createProduct(@ModelAttribute("createProduct") Product createProduct) {
         this.productService.handleSaveProduct(createProduct);
         return "redirect:/admin/product";
+    }
+
+    @GetMapping("products/{id}")
+    public String getProductByIdPage(Model model, @PathVariable("id") long id) {
+        Product product = this.productService.handleGetProductById(id);
+        List<Product> products = this.productService.handleFindAllProduct();
+        model.addAttribute("product", product);
+        model.addAttribute("products", products);
+        return "client/product/detail";
     }
 }

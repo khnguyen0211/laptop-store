@@ -1,6 +1,7 @@
 package com.project.store.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -22,5 +23,13 @@ public class ProductService {
 
     public List<Product> handleFindAllProduct() {
         return this.productRepository.findAll();
+    }
+
+    public Product handleGetProductById(long id) {
+        Optional<Product> optionalProduct = this.productRepository.findById(id);
+        if (!optionalProduct.isPresent()) {
+            return null;
+        }
+        return optionalProduct.get();
     }
 }
