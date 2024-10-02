@@ -76,9 +76,9 @@
                                             arialabelledby="dropdownMenuLink">
                                             <li class="d-flex align-items-center flex-column" style="min-width: 300px;">
                                                 <img style="width: 150px; height: 150px; border-radius: 50%; overflow: hidden;"
-                                                    src="http://localhost:8080/images/avatar/1727758332789-Image%20Couple.jpg" />
+                                                    src="/images/avatar/${sessionScope.avatar}" />
                                                 <div class="text-center my-3">
-                                                    ${pageContext.request.userPrincipal.name}
+                                                    ${sessionScope.fullName}
                                                 </div>
                                             </li>
                                             <li><a class="dropdown-item" href="#">Quản lý tài khoản</a></li>

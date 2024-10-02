@@ -58,4 +58,9 @@ public class AuthController {
         return "/client/auth/register";
     }
 
+    @GetMapping("/forbidden")
+    public String getDenyPage(Model model) {
+        return "client/auth/deny";
+    }
+
 }
