@@ -82,14 +82,15 @@
                                                     class="btn btn-primary rounded submit">Login</button>
                                             </div>
                                         </div>
-                                        <div class="form-group mt-4">
-                                            <div class="w-100 text-center">
-                                                <p class="mb-1">Don't have an account? <a href="/register">Sign Up</a>
-                                                </p>
-                                                <p><a href="#">Forgot Password</a></p>
-                                            </div>
-                                        </div>
+
                                     </form>
+                                    <div class="mt-4">
+                                        <div class="w-100 text-center">
+                                            <p class="mb-1">Don't have an account? <a href="/register">Sign Up</a>
+                                            </p>
+                                            <p><a href="#">Forgot Password</a></p>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

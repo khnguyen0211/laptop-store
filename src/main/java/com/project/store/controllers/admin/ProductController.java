@@ -42,7 +42,7 @@ public class ProductController {
 
     @GetMapping("products/{id}")
     public String getProductByIdPage(Model model, @PathVariable("id") long id) {
-        Product product = this.productService.handleGetProductById(id);
+        Product product = this.productService.handleFindProductById(id);
         List<Product> products = this.productService.handleFindAllProduct();
         model.addAttribute("product", product);
         model.addAttribute("products", products);

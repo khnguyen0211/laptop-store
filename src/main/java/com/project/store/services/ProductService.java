@@ -25,7 +25,7 @@ public class ProductService {
         return this.productRepository.findAll();
     }
 
-    public Product handleGetProductById(long id) {
+    public Product handleFindProductById(long id) {
         Optional<Product> optionalProduct = this.productRepository.findById(id);
         if (!optionalProduct.isPresent()) {
             return null;

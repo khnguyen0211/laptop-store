@@ -57,13 +57,12 @@ public class SecurityConfiguration {
 
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        // v6. lamda
         http
                 .authorizeHttpRequests(authorize -> authorize
                 .dispatcherTypeMatchers(DispatcherType.FORWARD,
                         DispatcherType.INCLUDE)
                 .permitAll()
-                .requestMatchers("/", "/login", "/product/**",
+                .requestMatchers("/", "/register", "/login", "/products/**",
                         "/client/**", "/css/**", "/js/**", "/images/**")
                 .permitAll()
                 .requestMatchers("/admin/**").hasRole("ADMIN")

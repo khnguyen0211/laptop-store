@@ -33,20 +33,19 @@ public class AuthController {
     @GetMapping(value = "/login")
     public String getLoginPage(Model model) {
         return "client/auth/loginPage";
-
     }
 
     @GetMapping(value = "register")
     public String getRegisterPage(Model model) {
         model.addAttribute("registerDto", new RegisterDto());
-        return "/client/auth/register";
+        return "client/auth/register";
     }
 
     @PostMapping(value = "register")
     public String registerAction(@ModelAttribute("registerDto") @Valid RegisterDto registerDto,
             BindingResult createUserBindingResult, Model model) {
         if (createUserBindingResult.hasErrors()) {
-            return "/client/auth/register";
+            return "client/auth/register";
         }
         Role role = this.roleService.handleGetRoleByName(Constant.USER_ROLE);
         registerDto.setPassword(this.passwordEncoder.encode(registerDto.getPassword()));
@@ -55,12 +54,17 @@ public class AuthController {
 
         model.addAttribute("success", true);
 
-        return "/client/auth/register";
+        return "client/auth/register";
     }
 
     @GetMapping("/forbidden")
-    public String getDenyPage(Model model) {
-        return "client/auth/deny";
+    public String getForbiddenPage(Model model) {
+        return "error_pages/forbidden";
+    }
+
+    @GetMapping("/page-not-found")
+    public String getNotFoundPage(Model model) {
+        return "error_pages/not_found";
     }
 
 }
