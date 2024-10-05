@@ -6,7 +6,6 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -25,7 +24,7 @@ public class CartDetail {
 
     private double price_total;
 
-    @OneToOne()
+    @ManyToOne()
     @JoinColumn(name = "cart_id")
     private Cart cart;
 
@@ -81,5 +80,6 @@ public class CartDetail {
 
     public void increaseQuantity() {
         this.quantity++;
+        this.price_total = this.price_total * this.quantity;
     }
 }

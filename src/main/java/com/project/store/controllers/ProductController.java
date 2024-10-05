@@ -1,4 +1,4 @@
-package com.project.store.controllers.admin;
+package com.project.store.controllers;
 
 import java.util.List;
 

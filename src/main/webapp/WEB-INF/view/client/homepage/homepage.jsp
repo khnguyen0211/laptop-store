@@ -86,7 +86,7 @@
                     </div>
                     <!-- Hero End -->
                     <!-- Fruits Shop Start-->
-                    <div class="container-fluid fruite py-3">
+                    <div id="product_content" class="container-fluid fruite py-3">
                         <div class="container py-5">
                             <div class="tab-class text-center">
                                 <div class="row g-4">
@@ -980,6 +980,18 @@
 
                         <!-- Template Javascript -->
                         <script src="/client/js/main.js"></script>
+                        <script>
+                            const queryString = window.location.search;
+                            const urlParams = new URLSearchParams(queryString);
+
+                            const loading = urlParams.get('loading');
+                            if (loading == 'true') {
+                                window.onload = function () {
+                                    document.getElementById("product_content").scrollIntoView();
+                                };
+                            }
+
+                        </script>
                 </body>
 
                 </html>

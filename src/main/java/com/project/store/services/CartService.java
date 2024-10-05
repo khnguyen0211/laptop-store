@@ -18,4 +18,7 @@ public class CartService {
         return this.cartRepository.save(cart);
     }
 
+    public void handleDeleteCart(Cart cart) {
+        this.cartRepository.delete(cart);
+    }
 }

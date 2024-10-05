@@ -39,7 +39,6 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler {
                 return roleTargetUrlMap.get(authorityName);
             }
         }
-
         throw new IllegalStateException();
     }
 
@@ -71,6 +70,11 @@ public class CustomSuccessHandler implements AuthenticationSuccessHandler {
             session.setAttribute("fullName", user.getFullName());
             session.setAttribute("avatar", user.getAvatar());
             session.setAttribute("email", user.getEmail());
+            int product_total = 0;
+            if (user.getCart() != null) {
+                product_total = user.getCart().getProduct_total();
+            }
+            session.setAttribute("cart", product_total);
         }
         redirectStrategy.sendRedirect(request, response, targetUrl);
         clearAuthenticationAttributes(request);

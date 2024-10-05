@@ -19,17 +19,18 @@ public class Cart {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private int product_total;
-
     @OneToMany(mappedBy = "cart")
     private List<CartDetail> cartDetails;
+
+    private int product_total = 0;
+
+    private int price_total = 0;
 
     @OneToOne()
     @JoinColumn(name = "user_id")
     private User user;
 
-    public Cart(User user, int product_total) {
-        this.product_total = product_total;
+    public Cart(User user) {
         this.user = user;
     }
 
@@ -48,10 +49,6 @@ public class Cart {
         return product_total;
     }
 
-    public void setProduct_total(int product_total) {
-        this.product_total = product_total;
-    }
-
     public List<CartDetail> getCartDetails() {
         return cartDetails;
     }
@@ -66,6 +63,24 @@ public class Cart {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public int increaseTotal() {
+        this.product_total++;
+        return this.product_total;
+    }
+
+    public int decreaseTotal() {
+        this.product_total--;
+        return this.product_total;
+    }
+
+    public int getPrice_total() {
+        return price_total;
+    }
+
+    public void setPrice_total(int price_total) {
+        this.price_total = price_total;
     }
 
 }

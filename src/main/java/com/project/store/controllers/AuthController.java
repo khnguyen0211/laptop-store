@@ -1,4 +1,4 @@
-package com.project.store.controllers.client;
+package com.project.store.controllers;
 
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
