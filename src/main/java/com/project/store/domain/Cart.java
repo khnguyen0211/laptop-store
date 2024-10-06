@@ -83,4 +83,16 @@ public class Cart {
         this.price_total = price_total;
     }
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Cart{");
+        sb.append("id=").append(id);
+        sb.append(", product_total=").append(product_total);
+        sb.append(", price_total=").append(price_total);
+        sb.append(", user=").append(user);
+        sb.append('}');
+        return sb.toString();
+    }
+
 }

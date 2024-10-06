@@ -33,6 +33,9 @@
 
                     <!-- Template Stylesheet -->
                     <link href="/client/css/style.css" rel="stylesheet">
+
+
+
                 </head>
 
                 <body>
@@ -53,85 +56,123 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <c:forEach items="${cartDetails}" var="cartDetail">
-                                            <tr>
-                                                <th scope="row">
-                                                    <div class="d-flex align-items-center">
-                                                        <img src="/images/product/${cartDetail.product.image}"
-                                                            class="img-fluid me-5 rounded-circle"
-                                                            style="width: 80px; height: 80px;" alt="">
-                                                    </div>
-                                                </th>
-                                                <td>
-                                                    <p class="mb-0 mt-4">${cartDetail.product.name}</p>
-                                                </td>
-                                                <td>
-                                                    <p class="mb-0 mt-4">
-                                                        <fmt:formatNumber type="number"
-                                                            value="${cartDetail.product.price}" /> VND
-                                                    </p>
+                                        <c:choose>
+                                            <c:when test="${not empty cartDetails}">
+                                                <c:forEach items="${cartDetails}" var="cartDetail" varStatus="status">
+                                                    <tr>
+                                                        <th scope="row">
+                                                            <div class="d-flex align-items-center">
+                                                                <img src="${cartDetail.product.image}"
+                                                                    class="img-fluid me-5 rounded-circle"
+                                                                    style="width: 80px; height: 80px;" alt="">
+                                                            </div>
+                                                        </th>
+                                                        <td>
+                                                            <a href="/products/${cartDetail.product.id}"
+                                                                style="color: #666666; font-weight: bold;">
+                                                                <p class="mb-0 mt-4">${cartDetail.product.name}</p>
+                                                            </a>
 
-                                                </td>
-                                                <td>
-                                                    <div class="input-group quantity mt-4" style="width: 100px;">
-                                                        <div class="input-group-btn">
-                                                            <button
-                                                                class="btn btn-sm btn-minus rounded-circle bg-light border">
-                                                                <i class="fa fa-minus"></i>
-                                                            </button>
-                                                        </div>
-                                                        <input type="text"
-                                                            class="form-control form-control-sm text-center border-0"
-                                                            value="${cartDetail.quantity}">
-                                                        <div class="input-group-btn">
-                                                            <button
-                                                                class="btn btn-sm btn-plus rounded-circle bg-light border">
-                                                                <i class="fa fa-plus"></i>
-                                                            </button>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <p class="mb-0 mt-4">
-                                                        <fmt:formatNumber type="number"
-                                                            value="${cartDetail.price_total}" /> VND
-                                                    </p>
-                                                </td>
-                                                <form:form action="/cart-detail/${cartDetail.id}" method="post">
-                                                    <td>
-                                                        <button type="submit"
-                                                            class="btn btn-md rounded-circle bg-light border mt-4">
-                                                            <i class="fa fa-times text-danger"></i>
-                                                        </button>
-                                                    </td>
-                                                </form:form>
-                                            </tr>
-                                        </c:forEach>
+                                                        </td>
+                                                        <td>
+                                                            <p class="mb-0 mt-4">
+                                                                <fmt:formatNumber type="number"
+                                                                    value="${cartDetail.product.price}" /> VND
+                                                            </p>
+                                                        </td>
+                                                        <td>
+                                                            <div class="input-group quantity mt-4"
+                                                                style="width: 100px;">
+                                                                <div class="input-group-btn">
+                                                                    <button
+                                                                        class="btn btn-sm btn-minus rounded-circle bg-light border">
+                                                                        <i class="fa fa-minus"></i>
+                                                                    </button>
+                                                                </div>
+                                                                <input type="text"
+                                                                    class="form-control form-control-sm text-center border-0"
+                                                                    value="${cartDetail.quantity}"
+                                                                    data-cart-detail-id="${cartDetail.id}"
+                                                                    data-cart-detail-price="${cartDetail.price_total}"
+                                                                    data-cart-detail-index="${status.index}">
+                                                                <div class="input-group-btn">
+                                                                    <button
+                                                                        class="btn btn-sm btn-plus rounded-circle bg-light border">
+                                                                        <i class="fa fa-plus"></i>
+                                                                    </button>
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <p class="mb-0 mt-4" data-cart-detail-id="${cartDetail.id}">
+                                                                <fmt:formatNumber type="number"
+                                                                    value="${cartDetail.price_total * cartDetail.quantity}" />
+                                                                VND
+                                                            </p>
+                                                        </td>
+                                                        <form:form action="/cart-detail/${cartDetail.id}" method="post">
+                                                            <td>
+                                                                <button type="submit"
+                                                                    class="btn btn-md rounded-circle bg-light border mt-4">
+                                                                    <i class="fa fa-times text-danger"></i>
+                                                                </button>
+                                                            </td>
+                                                        </form:form>
+                                                    </tr>
+                                                </c:forEach>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <script>
+                                                    function showModal() {
+                                                        const modal = document.getElementById('emptyCartModal');
+                                                        modal.style.display = 'block';
+                                                        modal.style.visibility = 'visible';
 
+                                                        setTimeout(() => {
+                                                            modal.style.top = '150px';
+                                                            modal.style.opacity = '1';
+                                                        }, 10);
+
+                                                        setTimeout(hideModal, 10000);
+
+                                                        setTimeout(() => {
+                                                            modal.style.display = 'none';
+                                                        }, 10000);
+                                                    }
+                                                    function hideModal() {
+                                                        const modal = document.getElementById('emptyCartModal');
+                                                        modal.style.top = '10px';
+                                                        setTimeout(() => {
+                                                            modal.style.display = 'none';
+                                                        }, 1000);
+                                                    }
+                                                    window.onload = function () {
+                                                        showModal();
+                                                        hideModal()
+                                                    };
+
+
+                                                </script>
+
+                                            </c:otherwise>
+                                        </c:choose>
                                         <tr>
-                                            <th>
-
-                                            </th>
+                                            <th></th>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
                                             <td>
-
-                                            </td>
-                                            <td>
-                                            </td>
-                                            <td>
-
-                                            </td>
-                                            <td modelAttribute="priceTotal">
-                                                <b class="mb-0 ">
-                                                    <fmt:formatNumber type="number" value="${priceTotal}" /> VND
+                                                <b class="mb-0" data-cart-total-price="${totalPrice}">
+                                                    <fmt:formatNumber type="number" value="${totalPrice}" /> VND
                                                 </b>
                                             </td>
-                                            <td>
-
-                                            </td>
+                                            <td></td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
+
+
                             <div class="mt-3 d-flex justify-content-between">
                                 <div>
                                     <input type="text" class="border-0 border-bottom rounded me-5 py-3 mb-4"
@@ -140,22 +181,67 @@
                                         type="button">Apply
                                         Coupon</button>
                                 </div>
-                                <div style="text-align: center;">
-                                    <a href="/billing"
-                                        class="btn border-secondary rounded-pill px-4 py-3 text-primary mx-au"
-                                        type="button">
-                                        Proceed Checkout
-                                    </a>
-                                </div>
+
+                                <c:choose>
+                                    <c:when test="${not empty cart}">
+                                        <div style="text-align: center;">
+                                            <form:form action="/proceed-checkout" method="post" modelAttribute="cart">
+                                                <input type="hidden" name="${_csrf.parameterName}"
+                                                    value="${_csrf.token}" />
+                                                <div style="display: none;">
+                                                    <c:forEach var="cartDetail" items="${cart.getCartDetails()}"
+                                                        varStatus="status">
+                                                        <div class="mb-3">
+                                                            <div class="form-group">
+                                                                <label>Id:</label>
+                                                                <form:input class="form-control" type="text"
+                                                                    value="${cartDetail.id}"
+                                                                    path="cartDetails[${status.index}].id" />
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label>Quantity:</label>
+                                                                <form:input class="form-control" type="text"
+                                                                    value="${cartDetail.quantity}"
+                                                                    path="cartDetails[${status.index}].quantity" />
+                                                            </div>
+                                                        </div>
+                                                    </c:forEach>
+                                                </div>
+                                                <button class="btn border-secondary rounded-pill 
+                                            px-4 py-3 text-primary text-uppercase mb-4 ms-4">Proceed Checkout
+                                                </button>
+                                            </form:form>
+                                        </div>
+                                    </c:when>
+                                </c:choose>
+
 
                             </div>
 
                         </div>
                     </div>
-                    <!-- Cart Page End -->
+
+
+                    <div id="emptyCartModal"
+                        style="position: fixed; z-index: 9999; left: 50%; top: -100px; transform: translateX(-50%); width: 300px; transition: top 0.5s ease-out, opacity 0.5s ease-out; opacity: 0; visibility: hidden;">
+                        <div class="modal-content"
+                            style="background-color: #ffffff; padding: 20px; border-radius: 12px; text-align: center; position: relative; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1); border: none;">
+                            <div
+                                style="background-color: #b2f634; width: 60px; height: 60px; border-radius: 50%; margin: 0 auto 15px; display: flex; align-items: center; justify-content: center;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24"
+                                    fill="none" stroke="#4caf50" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path d="M20 6L9 17l-5-5"></path>
+                                </svg>
+                            </div>
+                            <p style="font-size: 18px; font-weight: 600; color: #333333; margin: 0 0 10px;">Your Cart is
+                                Empty!</p>
+                            <p style="font-size: 14px; color: #666666; margin: 0 0 20px;">Looks like you haven't added
+                                any items to your cart yet.</p>
+                        </div>
+                    </div>
 
                     <jsp:include page="../layout/footer.jsp" />
-
                     <!-- JavaScript Libraries -->
                     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
                     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -166,6 +252,7 @@
 
                     <!-- Template Javascript -->
                     <script src="/client/js/main.js"></script>
+
                 </body>
 
                 </html>

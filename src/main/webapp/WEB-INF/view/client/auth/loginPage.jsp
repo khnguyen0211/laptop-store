@@ -57,14 +57,15 @@
                                                     class="fa fa-user"></span></div>
 
                                             <input type="email" class="form-control rounded-left "
-                                                placeholder="Username" name="username" />
+                                                placeholder="Username" name="username"
+                                                value="pnknguyen0211@gmail.com" />
                                         </div>
                                         <div class="form-group">
                                             <div class="icon d-flex align-items-center justify-content-center"><span
                                                     class="fa fa-lock">
                                                 </span>
                                             </div>
-                                            <input type="password" class="form-control rounded-left "
+                                            <input value="123456" type="password" class="form-control rounded-left "
                                                 placeholder="Password" name="password" />
                                         </div>
                                         <div>

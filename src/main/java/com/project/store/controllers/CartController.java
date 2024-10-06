@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -88,12 +89,15 @@ public class CartController {
         if (user.getCart() != null) {
             cartDetails = user.getCart().getCartDetails();
         }
-        int priceTotal = 0;
+        double totalPrice = 0;
         for (CartDetail cartDetail : cartDetails) {
-            priceTotal += cartDetail.getPrice_total();
+            totalPrice += cartDetail.getPrice_total() * cartDetail.getQuantity();
         }
         model.addAttribute("cartDetails", cartDetails);
-        model.addAttribute("priceTotal", priceTotal);
+        model.addAttribute("totalPrice", totalPrice);
+        model.addAttribute("cart", user.getCart());
+        System.out.println("user.getCart: " + user.getCart());
+
         return "client/cart/cart";
     }
 
@@ -119,9 +123,19 @@ public class CartController {
         return "redirect:/cart";
     }
 
-    @GetMapping(value = "/billing")
-    public String renderBillingPage(Model model) {
+    @PostMapping("/proceed-checkout")
+    public String proceedCheckout(Model model, @ModelAttribute("cart") Cart cart) {
+        if (cart == null || cart.getCartDetails() == null) {
+            return "redirect:/cart";
+        }
+        List<CartDetail> cartDetails = cart.getCartDetails();
+        List<CartDetail> realCartDetails = new ArrayList<>();
+        for (CartDetail cartDetail : cartDetails) {
+            CartDetail realCartDetail = this.cartDetailService.handleGetCartDetailById(cartDetail.getId());
+            realCartDetail.setQuantity(cartDetail.getQuantity());
+            realCartDetails.add(realCartDetail);
+        }
+        model.addAttribute("realCartDetails", realCartDetails);
         return "client/cart/billing";
     }
-
 }

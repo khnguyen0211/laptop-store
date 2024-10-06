@@ -11,7 +11,6 @@
                     <meta content="width=device-width, initial-scale=1.0" name="viewport">
                     <meta content="" name="keywords">
                     <meta content="" name="description">
-
                     <!-- Google Web Fonts -->
                     <link rel="preconnect" href="https://fonts.googleapis.com">
                     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -137,11 +136,13 @@
                                                         <div class="col-md-6 col-lg-4 col-xl-3 d-flex">
                                                             <div
                                                                 class="rounded position-relative fruite-item d-flex flex-column w-100">
-                                                                <div class="fruite-img">
-                                                                    <img src="/images/product/${product.image}"
-                                                                        class="img-fluid w-100 rounded-top" alt=""
-                                                                        style="height: 200px; object-fit: cover;">
+                                                                <div class="fruite-img"
+                                                                    style="width: 300px; height: 200px; display: flex; justify-content: center; align-items: center;">
+                                                                    <img src="${product.image}"
+                                                                        class="img-fluid rounded-top" alt=""
+                                                                        style="max-width: 100%; max-height: 100%; object-fit: contain;">
                                                                 </div>
+
                                                                 <div class="text-white bg-secondary px-3 py-1 rounded position-absolute"
                                                                     style="top: 10px; left: 10px;">
                                                                     ${product.target}
@@ -466,6 +467,26 @@
                     </div>
                     <!-- Fruits Shop End-->
 
+                    <div id="emptyCartModal"
+                        style="position: fixed; z-index: 9999; left: 50%; top: -100px; transform: translateX(-50%); width: 300px; transition: top 0.5s ease-out, opacity 0.5s ease-out; opacity: 0; visibility: hidden;">
+                        <div class="modal-content"
+                            style="background-color: #ffffff; padding: 20px; border-radius: 12px; text-align: center; position: relative; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1); border: none;">
+                            <div
+                                style="background-color: #b2f634; width: 60px; height: 60px; border-radius: 50%; margin: 0 auto 15px; display: flex; align-items: center; justify-content: center;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24"
+                                    fill="none" stroke="#4caf50" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round">
+                                    <path d="M20 6L9 17l-5-5"></path>
+                                </svg>
+                            </div>
+                            <p style="font-size: 18px; font-weight: 600; color: #333333; margin: 0 0 10px;">Added to
+                                Cart!</p>
+                            <p style="font-size: 14px; color: #666666; margin: 0 0 20px;">Your item has been
+                                successfully added to your
+                                cart.</p>
+
+                        </div>
+                    </div>
 
                     <!-- Vesitable Shop Start-->
                     <div class="container-fluid vesitable py-3">
@@ -853,7 +874,6 @@
                         </div>
                         <!-- Features Section End -->
 
-                        <!-- Tastimonial Start -->
                         <div class="container-fluid testimonial py-5">
                             <div class="container py-5">
                                 <div class="testimonial-header text-center">
@@ -957,17 +977,12 @@
                                 </div>
                             </div>
                         </div>
-                        <!-- Tastimonial End -->
-
 
                         <jsp:include page="../layout/footer.jsp" />
-
-
 
                         <!-- Back to Top -->
                         <a href="#" class="btn btn-primary border-3 border-primary rounded-circle back-to-top"><i
                                 class="fa fa-arrow-up"></i></a>
-
 
                         <!-- JavaScript Libraries -->
                         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
@@ -983,11 +998,37 @@
                         <script>
                             const queryString = window.location.search;
                             const urlParams = new URLSearchParams(queryString);
+                            function showModal() {
+                                const modal = document.getElementById('emptyCartModal');
+                                modal.style.display = 'block';
+                                modal.style.visibility = 'visible';
+
+                                setTimeout(() => {
+                                    modal.style.top = '150px';
+                                    modal.style.opacity = '1';
+                                }, 10);
+
+                                setTimeout(hideModal, 10000);
+
+                                setTimeout(() => {
+                                    modal.style.display = 'none';
+                                }, 10000);
+                            }
+
+                            function hideModal() {
+                                const modal = document.getElementById('emptyCartModal');
+                                modal.style.top = '10px';
+                                setTimeout(() => {
+                                    modal.style.display = 'none';
+                                }, 1000);
+                            }
 
                             const loading = urlParams.get('loading');
                             if (loading == 'true') {
                                 window.onload = function () {
                                     document.getElementById("product_content").scrollIntoView();
+                                    showModal();
+                                    hideModal()
                                 };
                             }
 

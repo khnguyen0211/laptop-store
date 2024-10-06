@@ -59,10 +59,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="form-item">
-                                            <label class="form-label my-3">Company Name<sup>*</sup></label>
-                                            <input type="text" class="form-control">
-                                        </div>
+
                                         <div class="form-item">
                                             <label class="form-label my-3">Address <sup>*</sup></label>
                                             <input type="text" class="form-control"
@@ -77,11 +74,7 @@
                                             <input type="text" class="form-control">
                                         </div>
                                         <div class="form-item">
-                                            <label class="form-label my-3">Postcode/Zip<sup>*</sup></label>
-                                            <input type="text" class="form-control">
-                                        </div>
-                                        <div class="form-item">
-                                            <label class="form-label my-3">Mobile<sup>*</sup></label>
+                                            <label class="form-label my-3">Phone Number<sup>*</sup></label>
                                             <input type="tel" class="form-control">
                                         </div>
                                         <div class="form-item">
@@ -118,105 +111,28 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
-                                                        <th scope="row">
-                                                            <div class="d-flex align-items-center mt-2">
-                                                                <img src="/client/img/vegetable-item-2.jpg"
-                                                                    class="img-fluid rounded-circle"
-                                                                    style="width: 90px; height: 90px;" alt="">
-                                                            </div>
-                                                        </th>
-                                                        <td class="py-5">Awesome Brocoli</td>
-                                                        <td class="py-5">$69.00</td>
-                                                        <td class="py-5">2</td>
-                                                        <td class="py-5">$138.00</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th scope="row">
-                                                            <div class="d-flex align-items-center mt-2">
-                                                                <img src="/client/img/vegetable-item-5.jpg"
-                                                                    class="img-fluid rounded-circle"
-                                                                    style="width: 90px; height: 90px;" alt="">
-                                                            </div>
-                                                        </th>
-                                                        <td class="py-5">Potatoes</td>
-                                                        <td class="py-5">$69.00</td>
-                                                        <td class="py-5">2</td>
-                                                        <td class="py-5">$138.00</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th scope="row">
-                                                            <div class="d-flex align-items-center mt-2">
-                                                                <img src="/client/img/vegetable-item-3.png"
-                                                                    class="img-fluid rounded-circle"
-                                                                    style="width: 90px; height: 90px;" alt="">
-                                                            </div>
-                                                        </th>
-                                                        <td class="py-5">Big Banana</td>
-                                                        <td class="py-5">$69.00</td>
-                                                        <td class="py-5">2</td>
-                                                        <td class="py-5">$138.00</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th scope="row">
-                                                        </th>
-                                                        <td class="py-5"></td>
-                                                        <td class="py-5"></td>
-                                                        <td class="py-5">
-                                                            <p class="mb-0 text-dark py-3">Subtotal</p>
-                                                        </td>
-                                                        <td class="py-5">
-                                                            <div class="py-3 border-bottom border-top">
-                                                                <p class="mb-0 text-dark">$414.00</p>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th scope="row">
-                                                        </th>
-                                                        <td class="py-5">
-                                                            <p class="mb-0 text-dark py-4">Shipping</p>
-                                                        </td>
-                                                        <td colspan="3" class="py-5">
-                                                            <div class="form-check text-start">
-                                                                <input type="checkbox"
-                                                                    class="form-check-input bg-primary border-0"
-                                                                    id="Shipping-1" name="Shipping-1" value="Shipping">
-                                                                <label class="form-check-label" for="Shipping-1">Free
-                                                                    Shipping</label>
-                                                            </div>
-                                                            <div class="form-check text-start">
-                                                                <input type="checkbox"
-                                                                    class="form-check-input bg-primary border-0"
-                                                                    id="Shipping-2" name="Shipping-1" value="Shipping">
-                                                                <label class="form-check-label" for="Shipping-2">Flat
-                                                                    rate:
-                                                                    $15.00</label>
-                                                            </div>
-                                                            <div class="form-check text-start">
-                                                                <input type="checkbox"
-                                                                    class="form-check-input bg-primary border-0"
-                                                                    id="Shipping-3" name="Shipping-1" value="Shipping">
-                                                                <label class="form-check-label" for="Shipping-3">Local
-                                                                    Pickup:
-                                                                    $8.00</label>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <th scope="row">
-                                                        </th>
-                                                        <td class="py-5">
-                                                            <p class="mb-0 text-dark text-uppercase py-3">TOTAL</p>
-                                                        </td>
-                                                        <td class="py-5"></td>
-                                                        <td class="py-5"></td>
-                                                        <td class="py-5">
-                                                            <div class="py-3 border-bottom border-top">
-                                                                <p class="mb-0 text-dark">$135.00</p>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
+                                                    <c:forEach var="cartDetail" items="${realCartDetails}">
+                                                        <tr>
+                                                            <th scope="row">
+                                                                <div class="d-flex align-items-center mt-2">
+                                                                    <img src="${cartDetail.product.image}"
+                                                                        class="img-fluid rounded-circle"
+                                                                        style="width: 90px; height: 90px;" alt="">
+                                                                </div>
+                                                            </th>
+                                                            <td class="py-5">${cartDetail.getProduct().getName()}</td>
+                                                            <td class="py-5">
+                                                                <fmt:formatNumber type="number"
+                                                                    value="${cartDetail.product.price}" /> VND
+                                                            </td>
+                                                            <td class="py-5">${cartDetail.quantity}</td>
+                                                            <td class="py-5">
+                                                                <fmt:formatNumber type="number"
+                                                                    value="${cartDetail.quantity * cartDetail.product.price} " />
+                                                                VND
+                                                            </td>
+                                                        </tr>
+                                                    </c:forEach>
                                                 </tbody>
                                             </table>
                                         </div>

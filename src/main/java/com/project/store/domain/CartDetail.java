@@ -16,6 +16,12 @@ public class CartDetail {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
+    @Override
+    public String toString() {
+        return "CartDetail [id=" + id + ", product=" + product + ", quantity=" + quantity + ", price_total="
+                + price_total + ", cart=" + cart + "]";
+    }
+
     @ManyToOne()
     @JoinColumn(name = "product_id")
     private Product product;

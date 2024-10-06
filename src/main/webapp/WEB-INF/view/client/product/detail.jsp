@@ -79,8 +79,7 @@
                                         <div class="col-lg-6">
                                             <div class="border rounded">
                                                 <a href="#">
-                                                    <img src="/images/product/${product.image}"
-                                                        class="img-fluid rounded" alt="Image">
+                                                    <img src="${product.image}" class="img-fluid rounded" alt="Image">
                                                 </a>
                                             </div>
                                         </div>
@@ -344,9 +343,10 @@
                                                 <div class="d-flex align-items-center justify-content-start"
                                                     style="cursor: pointer;"
                                                     onclick="window.location.href='/products/${product.id}';">
-                                                    <div class="rounded" style="width: 100px; height: 100px;">
-                                                        <img src="/images/product/${product.image}"
-                                                            class="img-fluid rounded" alt="Image">
+                                                    <div
+                                                        style="width: 300px; height: 200px; display: flex; justify-content: center; align-items: center;">
+                                                        <img src="${product.image}" class="img-fluid rounded-top" alt=""
+                                                            style="max-width: 100%; max-height: 100%; object-fit: contain;">
                                                     </div>
                                                     <div class="mx-3">
                                                         <h6 class="mb-2"><a style="color: black;"
