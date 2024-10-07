@@ -1,6 +1,6 @@
 package com.project.store.domain;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.data.annotation.CreatedDate;
@@ -28,11 +28,11 @@ public class Order {
 
      @CreatedDate
     @Column(name = "created_at")
-    private LocalDateTime createdAt = LocalDateTime.now();
+    private Date createdAt = new Date();
 
     @LastModifiedDate
     @Column(name = "updated_at")
-    private LocalDateTime updatedAt = LocalDateTime.now();
+    private Date updatedAt = new Date();
 
     @ManyToOne()
     @JoinColumn(name = "user_id")
@@ -41,6 +41,7 @@ public class Order {
     @OneToMany(mappedBy = "order")
     private List<OrderDetail> orderDetails;
 
+    private int productTotal;
     @Column(columnDefinition = "MEDIUMTEXT", nullable = true)
     private String orderNote;
 
@@ -99,20 +100,28 @@ public class Order {
         this.orderDetails = orderDetails;
     }
 
-    public LocalDateTime getCreatedAt() {
+    public Date getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(LocalDateTime createdAt) {
+    public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
 
-    public LocalDateTime getUpdatedAt() {
+    public Date getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(LocalDateTime updatedAt) {
+    public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public int getProductTotal() {
+        return productTotal;
+    }
+
+    public void setProductTotal(int productTotal) {
+        this.productTotal = productTotal;
     }
 
 }

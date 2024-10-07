@@ -23,7 +23,6 @@ import com.project.store.services.UtilsService;
 
 import jakarta.servlet.http.HttpServletRequest;
 
-
 @Controller
 public class OrderController {
 
@@ -84,6 +83,7 @@ public class OrderController {
         order.setUser(user);
         order.setOrderNote(orderNote);
         order.setTotalPrice(cart.getPrice_total());
+        order.setProductTotal(cart.getProduct_total());
         Order insertedOrder = this.orderService.handleSaveOrder(order);
         //create a record
         for (CartDetail cartDetail : cart.getCartDetails()) {
@@ -99,12 +99,15 @@ public class OrderController {
         //delete cart of user
         this.cartService.handleDeleteCart(cart);
         utilsService.setCartSession(0);
-        return "hello";
+        return "redirect:/";
     }
 
     @GetMapping("/order-history")
-    public String getMethodName() {
+    public String getOrderHistory(Model model) {
+        User user = this.utilsService.getSessionUser();
+        List<Order> orders = this.orderService.handleGetOrdersByUser(user);
+        model.addAttribute("orders", orders);
         return "client/cart/order_history";
     }
-    
+
 }

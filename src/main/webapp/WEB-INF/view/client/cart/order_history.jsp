@@ -47,50 +47,54 @@
                                 <table class="table">
                                     <thead>
                                         <tr>
-                                            <th scope="col">Order Id</th>
-                                            <th scope="col">Total</th>
-                                            <th scope="col">Price</th>
+                                            <th scope="col">Order</th>
                                             <th scope="col">Date</th>
+                                            <th scope="col">Price</th>
+                                            <th scope="col">Quantity</th>
                                             <th scope="col">Status</th>
+                                            <th scope="col">Action</th>
+
                                         </tr>
                                     </thead>
-                                    <tbody>
-                                        <tr>
-                                            <th scope="row">
-                                                    123
-                                            </th>
-                                            <td>
-                                                    123
-                                            </td>
-                                            <td>
-                                               
-                                                    123
-                                            </td>
-                                            <td>
-                                                    123
-                                            </td>
-                                            <td>
-                                                
-                                                    123
-                                            </td>
-                                            
-                                        </tr>
-
-                                        <tr>
-                                            <th></th>
-                                            <td></td>
-                                            <td></td>
-                                            <td></td>
-                                            <td>
-                                                <button class="btn btn-susseed">OK</button>
-                                            </td>
-                                        </tr>
+                                    <tbody class="text-align: center">
+                                        <c:forEach items="${orders}" var="order" varStatus="status">
+                                            <c:set var="index" value="${status.index + 1}" />
+                                            <tr>
+                                                <th scope="row">
+                                                    ${index}
+                                                </th>
+                                                <td>
+                                                    <fmt:formatDate value="${order.getCreatedAt()}"
+                                                        pattern="dd-MM-yyyy" />
+                                                </td>
+                                                <td>
+                                                    <fmt:formatNumber type="number" value="${order.getTotalPrice()}" />
+                                                    VND
+                                                </td>
+                                                <td>
+                                                    ${order.getProductTotal()}
+                                                </td>
+                                                <td>
+                                                    <button type="button"
+                                                        class="btn btn-outline-warning">${order.getStatus()}</button>
+                                                </td>
+                                                <td>
+                                                    <button type="button" class="btn btn-outline-primary">
+                                                        <i class="fas fa-eye"></i>
+                                                    </button>
+                                                    <button type="button" class="btn btn-outline-warning">
+                                                        <i class="far fa-edit"></i>
+                                                    </button>
+                                                    <button type="button"
+                                                        class="btn btn-outline-danger">
+                                                    <i class="fas fa-trash"></i>
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        </c:forEach>
                                     </tbody>
                                 </table>
                             </div>
-
-
-
                         </div>
                     </div>
 

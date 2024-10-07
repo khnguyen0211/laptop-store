@@ -59,12 +59,22 @@
                                         class="btn-search btn border border-secondary btn-md-square rounded-circle bg-white me-4"
                                         data-bs-toggle="modal" data-bs-target="#searchModal"><i
                                             class="fas fa-search text-primary"></i></button>
+                                    <a href="/order-history" class="position-relative me-4 my-auto">
+                                        <i class="fas fa-history fa-2x"></i>
+                                    </a>
                                     <a href="/cart" class="position-relative me-4 my-auto">
                                         <i class="fa fa-shopping-bag fa-2x"></i>
                                         <span
                                             class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1"
                                             style="top: -5px; left: 15px; height: 20px; min-width: 20px;">${sessionScope.cart}</span>
                                     </a>
+                                    <a href="#" class="position-relative me-4 my-auto">
+                                        <i class="fas fa-bell fa-2x"></i>
+                                        <span
+                                            class="position-absolute bg-secondary rounded-circle d-flex align-items-center justify-content-center text-dark px-1"
+                                            style="top: -5px; left: 15px; height: 20px; min-width: 20px;">0</span>
+                                    </a>
+
                                     <div class="dropdown my-auto">
                                         <a href="#" class="dropdown" role="button" id="dropdownMenuLink"
                                             data-bs-toggle="dropdown" aria-expanded="false" data-bs-toggle="dropdown"
@@ -81,7 +91,7 @@
                                                 </div>
                                             </li>
                                             <li><a class="dropdown-item" href="#">Quản lý tài khoản</a></li>
-                                            <li><a class="dropdown-item" href="#">Lịch sử mua hàng</a></li>
+                                            <li><a class="dropdown-item" href="/order-history">Lịch sử mua hàng</a></li>
                                             <li>
                                                 <hr class="dropdown-divider">
                                             </li>

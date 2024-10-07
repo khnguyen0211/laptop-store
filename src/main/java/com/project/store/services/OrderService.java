@@ -1,9 +1,12 @@
 package com.project.store.services;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.project.store.domain.Order;
 import com.project.store.domain.OrderDetail;
+import com.project.store.domain.User;
 import com.project.store.repositories.OrderDetailRepository;
 import com.project.store.repositories.OrderRepository;
 
@@ -17,6 +20,9 @@ public class OrderService {
         this.orderRepository = orderRepository;
     }
 
+    public List<Order> handleGetOrdersByUser(User user) {
+        return this.orderRepository.findByUser(user);
+    }
 
     public OrderDetail handleSaveOrderDetail(OrderDetail orderDetail) {
         return this.orderDetailRepository.save(orderDetail);

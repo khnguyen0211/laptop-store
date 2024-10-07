@@ -1,5 +1,6 @@
 package com.project.store.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
@@ -76,7 +77,10 @@ public class CartController {
     public String renderCartPage(Model model, HttpServletRequest request) {
         User user = this.utilsService.getSessionUser();
         if (user.getCart() == null) {
-            return "redirect:/";
+            model.addAttribute("cartDetails", new ArrayList<>());
+            model.addAttribute("totalPrice", 0);
+            model.addAttribute("cart", new Cart());
+            return "client/cart/cart";
         }
         double totalPrice = 0;
         for (CartDetail cartDetail : user.getCart().getCartDetails()) {
