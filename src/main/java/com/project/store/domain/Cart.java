@@ -1,5 +1,6 @@
 package com.project.store.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.Entity;
@@ -20,22 +21,15 @@ public class Cart {
     private long id;
 
     @OneToMany(mappedBy = "cart")
-    private List<CartDetail> cartDetails;
+    private List<CartDetail> cartDetails = new ArrayList<>();
 
     private int product_total = 0;
 
-    private int price_total = 0;
+    private double price_total = 0;
 
     @OneToOne()
     @JoinColumn(name = "user_id")
     private User user;
-
-    public Cart(User user) {
-        this.user = user;
-    }
-
-    public Cart() {
-    }
 
     public long getId() {
         return id;
@@ -57,6 +51,13 @@ public class Cart {
         this.cartDetails = cartDetails;
     }
 
+    public Cart(User user) {
+        this.user = user;
+    }
+
+    public Cart() {
+    }
+
     public User getUser() {
         return user;
     }
@@ -75,11 +76,11 @@ public class Cart {
         return this.product_total;
     }
 
-    public int getPrice_total() {
+    public double getPrice_total() {
         return price_total;
     }
 
-    public void setPrice_total(int price_total) {
+    public void setPrice_total(double price_total) {
         this.price_total = price_total;
     }
 

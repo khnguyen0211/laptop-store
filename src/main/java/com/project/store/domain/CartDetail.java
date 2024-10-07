@@ -40,7 +40,7 @@ public class CartDetail {
     public CartDetail(Product product, Cart cart) {
         this.cart = cart;
         this.product = product;
-        this.quantity++;
+        this.quantity = 1;
         this.price_total = product.getPrice() * quantity;
     }
 

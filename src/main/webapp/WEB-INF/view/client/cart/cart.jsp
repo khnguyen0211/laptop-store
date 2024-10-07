@@ -93,7 +93,7 @@
                                                                     class="form-control form-control-sm text-center border-0"
                                                                     value="${cartDetail.quantity}"
                                                                     data-cart-detail-id="${cartDetail.id}"
-                                                                    data-cart-detail-price="${cartDetail.price_total}"
+                                                                    data-cart-detail-price="${cartDetail.product.price}"
                                                                     data-cart-detail-index="${status.index}">
                                                                 <div class="input-group-btn">
                                                                     <button
@@ -106,7 +106,7 @@
                                                         <td>
                                                             <p class="mb-0 mt-4" data-cart-detail-id="${cartDetail.id}">
                                                                 <fmt:formatNumber type="number"
-                                                                    value="${cartDetail.price_total * cartDetail.quantity}" />
+                                                                    value="${cartDetail.price_total}" />
                                                                 VND
                                                             </p>
                                                         </td>

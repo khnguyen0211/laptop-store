@@ -42,44 +42,34 @@
                     <div class="container-fluid py-5">
                         <div class="container py-5">
                             <h1 class="mb-4">Billing details</h1>
-                            <form action="#">
-                                <div class="row g-5 mt-3">
-                                    <div class="col-md-12 col-lg-6 col-xl-7">
-                                        <div class="row">
-                                            <div class="col-md-12 col-lg-6">
-                                                <div class="form-item w-100">
-                                                    <label class="form-label my-3">First Name<sup>*</sup></label>
-                                                    <input type="text" class="form-control">
-                                                </div>
-                                            </div>
-                                            <div class="col-md-12 col-lg-6">
-                                                <div class="form-item w-100">
-                                                    <label class="form-label my-3">Last Name<sup>*</sup></label>
-                                                    <input type="text" class="form-control">
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-item">
-                                            <label class="form-label my-3">Address <sup>*</sup></label>
-                                            <input type="text" class="form-control"
-                                                placeholder="House Number Street Name">
+                            <div class="row g-5 mt-3">
+                                <!-- Left Section Form -->
+                                <div class="col-md-12 col-lg-6 col-xl-7">
+                                    <form:form modelAttribute="user"> <!-- Form for Billing Details -->
+                                        <div class="form-item" style="display: none;">
+                                            <label class="form-label my-3">ID<sup>*</sup></label>
+                                            <form:input type="tel" class="form-control" path="id" />
                                         </div>
                                         <div class="form-item">
-                                            <label class="form-label my-3">Town/City<sup>*</sup></label>
-                                            <input type="text" class="form-control">
+                                            <label class="form-label my-3">Full Name<sup>*</sup></label>
+                                            <form:input type="tel" class="form-control" path="fullName" />
                                         </div>
                                         <div class="form-item">
-                                            <label class="form-label my-3">Country<sup>*</sup></label>
-                                            <input type="text" class="form-control">
+                                            <label class="form-label my-3">Email<sup>*</sup></label>
+                                            <form:input type="email" class="form-control" path="email" />
                                         </div>
                                         <div class="form-item">
                                             <label class="form-label my-3">Phone Number<sup>*</sup></label>
-                                            <input type="tel" class="form-control">
+                                            <form:input type="tel" class="form-control" path="phone" />
                                         </div>
                                         <div class="form-item">
-                                            <label class="form-label my-3">Email Address<sup>*</sup></label>
-                                            <input type="email" class="form-control">
+                                            <label class="form-label my-3">Address<sup>*</sup></label>
+                                            <form:input type="text" class="form-control"
+                                                placeholder="House Number Street Name" path="address" />
+                                        </div>
+                                        <div class="form-item">
+                                            <label class="form-label my-3">Town/City<sup>*</sup></label>
+                                            <input type="text" class="form-control" value="Ho Chi Minh City">
                                         </div>
                                         <div class="form-check my-3">
                                             <input type="checkbox" class="form-check-input" id="Account-1"
@@ -93,12 +83,14 @@
                                             <label class="form-check-label" for="Address-1">Ship to a different
                                                 address?</label>
                                         </div>
-                                        <div class="form-item">
-                                            <textarea name="text" class="form-control" spellcheck="false" cols="30"
-                                                rows="11" placeholder="Oreder Notes (Optional)"></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12 col-lg-6 col-xl-5">
+
+                                    </form:form>
+                                </div>
+
+                                <!-- Right Section Form -->
+                                <div class="col-md-12 col-lg-6 col-xl-5">
+                                    <form:form action="/place-order" method="post">
+                                        <!-- Form for Product Summary and Payment -->
                                         <div class="table-responsive">
                                             <table class="table">
                                                 <thead>
@@ -123,12 +115,13 @@
                                                             <td class="py-5">${cartDetail.getProduct().getName()}</td>
                                                             <td class="py-5">
                                                                 <fmt:formatNumber type="number"
-                                                                    value="${cartDetail.product.price}" /> VND
+                                                                    value="${cartDetail.product.price}" />
+                                                                VND
                                                             </td>
                                                             <td class="py-5">${cartDetail.quantity}</td>
                                                             <td class="py-5">
                                                                 <fmt:formatNumber type="number"
-                                                                    value="${cartDetail.quantity * cartDetail.product.price} " />
+                                                                    value="${cartDetail.quantity * cartDetail.product.price}" />
                                                                 VND
                                                             </td>
                                                         </tr>
@@ -136,37 +129,18 @@
                                                 </tbody>
                                             </table>
                                         </div>
+
                                         <div
-                                            class="row g-4 text-center align-items-center justify-content-center border-bottom py-3">
+                                            class="row g-4 text-center align-items-center justify-content-center border-bottom pb-3">
                                             <div class="col-12">
-                                                <div class="form-check text-start my-3">
-                                                    <input type="checkbox" class="form-check-input bg-primary border-0"
-                                                        id="Transfer-1" name="Transfer" value="Transfer">
-                                                    <label class="form-check-label" for="Transfer-1">Direct Bank
-                                                        Transfer</label>
-                                                </div>
-                                                <p class="text-start text-dark">Make your payment directly into our bank
-                                                    account. Please
-                                                    use your Order ID as the payment reference. Your order will not be
-                                                    shipped until the
-                                                    funds have cleared in our account.</p>
+                                                <textarea name="orderNote" class="form-control" spellcheck="false"
+                                                    cols="20" rows="5" placeholder="Order Notes (Optional)"></textarea>
                                             </div>
                                         </div>
                                         <div
                                             class="row g-4 text-center align-items-center justify-content-center border-bottom py-3">
                                             <div class="col-12">
-                                                <div class="form-check text-start my-3">
-                                                    <input type="checkbox" class="form-check-input bg-primary border-0"
-                                                        id="Payments-1" name="Payments" value="Payments">
-                                                    <label class="form-check-label" for="Payments-1">Check
-                                                        Payments</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div
-                                            class="row g-4 text-center align-items-center justify-content-center border-bottom py-3">
-                                            <div class="col-12">
-                                                <div class="form-check text-start my-3">
+                                                <div class="form-check text-start">
                                                     <input type="checkbox" class="form-check-input bg-primary border-0"
                                                         id="Delivery-1" name="Delivery" value="Delivery">
                                                     <label class="form-check-label" for="Delivery-1">Cash On
@@ -177,7 +151,7 @@
                                         <div
                                             class="row g-4 text-center align-items-center justify-content-center border-bottom py-3">
                                             <div class="col-12">
-                                                <div class="form-check text-start my-3">
+                                                <div class="form-check text-start">
                                                     <input type="checkbox" class="form-check-input bg-primary border-0"
                                                         id="Paypal-1" name="Paypal" value="Paypal">
                                                     <label class="form-check-label" for="Paypal-1">Paypal</label>
@@ -185,13 +159,13 @@
                                             </div>
                                         </div>
                                         <div class="row g-4 text-center align-items-center justify-content-center pt-4">
-                                            <button type="button"
+                                            <button type="submit"
                                                 class="btn border-secondary py-3 px-4 text-uppercase w-100 text-primary">Place
                                                 Order</button>
                                         </div>
-                                    </div>
+                                    </form:form>
                                 </div>
-                            </form>
+                            </div>
                         </div>
                     </div>
                     <!-- Checkout Page End -->
@@ -208,5 +182,6 @@
                     <!-- Template Javascript -->
                     <script src="/client/js/main.js"></script>
                 </body>
+
 
                 </html>

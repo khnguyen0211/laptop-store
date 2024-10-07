@@ -3,6 +3,7 @@ package com.project.store.services;
 import org.springframework.stereotype.Service;
 
 import com.project.store.domain.Cart;
+import com.project.store.domain.User;
 import com.project.store.repositories.CartRepository;
 
 @Service()
@@ -20,5 +21,9 @@ public class CartService {
 
     public void handleDeleteCart(Cart cart) {
         this.cartRepository.delete(cart);
+    }
+
+    public Cart handleFindCartByUser(User user) {
+        return this.cartRepository.findByUser(user);
     }
 }

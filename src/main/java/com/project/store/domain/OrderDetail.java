@@ -17,6 +17,7 @@ public class OrderDetail {
     private long id;
 
     private long quantity;
+
     private double price;
 
     @ManyToOne

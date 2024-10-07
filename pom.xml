@@ -13,6 +13,7 @@
     <version>0.0.1-SNAPSHOT</version>
     <name>store</name>
     <description>First project with Spring Boot</description>
+    <packaging>war</packaging>
     <url/>
     <licenses>
         <license/>
@@ -92,10 +93,11 @@
             <groupId>org.springframework.session</groupId>
             <artifactId>spring-session-jdbc</artifactId>
         </dependency>
-
-
+        <dependency>
+            <groupId>org.glassfish.jaxb</groupId>
+            <artifactId>jaxb-runtime</artifactId>
+        </dependency>
     </dependencies>
-
     <build>
         <plugins>
             <plugin>

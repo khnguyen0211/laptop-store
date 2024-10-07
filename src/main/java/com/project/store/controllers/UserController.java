@@ -52,7 +52,7 @@ public class UserController {
     public String postUserPage(
             @ModelAttribute("createUser") @Valid User createUser,
             BindingResult createUserBindingResult,
-            @RequestParam("hoidanitFile") MultipartFile file
+            @RequestParam("imageFile") MultipartFile file
     ) {
 
         List<FieldError> errors = createUserBindingResult.getFieldErrors();

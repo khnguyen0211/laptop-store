@@ -1,12 +1,10 @@
 package com.project.store.controllers;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -18,6 +16,7 @@ import com.project.store.services.CartDetailService;
 import com.project.store.services.CartService;
 import com.project.store.services.ProductService;
 import com.project.store.services.UserService;
+import com.project.store.services.UtilsService;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -29,12 +28,14 @@ public class CartController {
     private final UserService userService;
     private final CartService cartService;
     private final CartDetailService cartDetailService;
+    private final UtilsService utilsService;
 
-    public CartController(CartDetailService cartDetailService, CartService cartService, ProductService productService, UserService userService) {
+    public CartController(CartDetailService cartDetailService, CartService cartService, ProductService productService, UserService userService, UtilsService utilsService) {
         this.cartDetailService = cartDetailService;
         this.cartService = cartService;
         this.productService = productService;
         this.userService = userService;
+        this.utilsService = utilsService;
     }
 
     @PostMapping(value = "/carts/{id}")
@@ -76,28 +77,19 @@ public class CartController {
 
     @GetMapping(value = "/cart")
     public String renderCartPage(Model model, HttpServletRequest request) {
-        HttpSession session = request.getSession(false);
-        if (session == null) {
+        User user = this.utilsService.getSessionUser();
+        if (user.getCart() == null) {
             return "redirect:/";
-        }
-        String userEmail = (String) session.getAttribute("email");
-        User user = this.userService.getUserByEmail(userEmail);
-        if (user == null) {
-            return "redirect:/";
-        }
-        List<CartDetail> cartDetails = new ArrayList<>();
-        if (user.getCart() != null) {
-            cartDetails = user.getCart().getCartDetails();
         }
         double totalPrice = 0;
-        for (CartDetail cartDetail : cartDetails) {
-            totalPrice += cartDetail.getPrice_total() * cartDetail.getQuantity();
+        for (CartDetail cartDetail : user.getCart().getCartDetails()) {
+            totalPrice += cartDetail.getPrice_total();
         }
-        model.addAttribute("cartDetails", cartDetails);
+        user.getCart().setPrice_total(totalPrice);
+        this.cartService.handleSaveCart(user.getCart());
+        model.addAttribute("cartDetails", user.getCart().getCartDetails());
         model.addAttribute("totalPrice", totalPrice);
         model.addAttribute("cart", user.getCart());
-        System.out.println("user.getCart: " + user.getCart());
-
         return "client/cart/cart";
     }
 
@@ -123,19 +115,4 @@ public class CartController {
         return "redirect:/cart";
     }
 
-    @PostMapping("/proceed-checkout")
-    public String proceedCheckout(Model model, @ModelAttribute("cart") Cart cart) {
-        if (cart == null || cart.getCartDetails() == null) {
-            return "redirect:/cart";
-        }
-        List<CartDetail> cartDetails = cart.getCartDetails();
-        List<CartDetail> realCartDetails = new ArrayList<>();
-        for (CartDetail cartDetail : cartDetails) {
-            CartDetail realCartDetail = this.cartDetailService.handleGetCartDetailById(cartDetail.getId());
-            realCartDetail.setQuantity(cartDetail.getQuantity());
-            realCartDetails.add(realCartDetail);
-        }
-        model.addAttribute("realCartDetails", realCartDetails);
-        return "client/cart/billing";
-    }
 }
