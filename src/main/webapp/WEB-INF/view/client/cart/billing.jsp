@@ -40,7 +40,7 @@
                     <jsp:include page="../layout/header.jsp" />
                     <!-- Checkout Page Start -->
                     <div class="container-fluid py-5">
-                        <div class="container py-5">
+                        <div class="container py-2">
                             <h1 class="mb-4">Billing details</h1>
                             <div class="row g-5 mt-3">
                                 <!-- Left Section Form -->

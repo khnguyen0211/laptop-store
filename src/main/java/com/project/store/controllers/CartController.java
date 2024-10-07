@@ -12,7 +12,6 @@ import com.project.store.domain.Cart;
 import com.project.store.domain.CartDetail;
 import com.project.store.domain.Product;
 import com.project.store.domain.User;
-import com.project.store.services.CartDetailService;
 import com.project.store.services.CartService;
 import com.project.store.services.ProductService;
 import com.project.store.services.UserService;
@@ -27,11 +26,9 @@ public class CartController {
     private final ProductService productService;
     private final UserService userService;
     private final CartService cartService;
-    private final CartDetailService cartDetailService;
     private final UtilsService utilsService;
 
-    public CartController(CartDetailService cartDetailService, CartService cartService, ProductService productService, UserService userService, UtilsService utilsService) {
-        this.cartDetailService = cartDetailService;
+    public CartController( CartService cartService, ProductService productService, UserService userService, UtilsService utilsService) {
         this.cartService = cartService;
         this.productService = productService;
         this.userService = userService;
@@ -62,7 +59,7 @@ public class CartController {
                 CartDetail cartDetail = new CartDetail(product, cart);
                 int updatedTotal = cart.increaseTotal();
                 session.setAttribute("cart", updatedTotal);
-                this.cartDetailService.handleSaveCartDetail(cartDetail);
+                this.cartService.handleSaveCartDetail(cartDetail);
             }
         } else {
             Cart newCart = new Cart(user);
@@ -70,7 +67,7 @@ public class CartController {
             session.setAttribute("cart", updatedTotal);
             this.cartService.handleSaveCart(newCart);
             CartDetail cartDetail = new CartDetail(product, newCart);
-            this.cartDetailService.handleSaveCartDetail(cartDetail);
+            this.cartService.handleSaveCartDetail(cartDetail);
         }
         return "redirect:/?loading=true";
     }
@@ -97,11 +94,11 @@ public class CartController {
     public String deleteCartDetail(Model model,
             HttpServletRequest request,
             @PathVariable("id") long cartDetailId) {
-        CartDetail cartDetail = this.cartDetailService.handleGetCartDetailById(cartDetailId);
+        CartDetail cartDetail = this.cartService.handleGetCartDetailById(cartDetailId);
         if (cartDetail == null) {
             return "redirect:/cart";
         }
-        this.cartDetailService.handleDeleteCartDetail(cartDetail);
+        this.cartService.handleDeleteCartDetail(cartDetail);
         Cart cart = cartDetail.getCart();
         cart.decreaseTotal();
 

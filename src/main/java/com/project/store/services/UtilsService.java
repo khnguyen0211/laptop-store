@@ -27,4 +27,12 @@ public class UtilsService {
         User user = this.userService.getUserByEmail(userEmail);
         return user;
     }
+
+    public void setCartSession(int value) {
+        HttpSession session = request.getSession(false);
+        if (session == null) {
+            return;
+        }
+        session.setAttribute("cart", value);
+    }
 }

@@ -72,7 +72,6 @@
                                                                 style="color: #666666; font-weight: bold;">
                                                                 <p class="mb-0 mt-4">${cartDetail.product.name}</p>
                                                             </a>
-
                                                         </td>
                                                         <td>
                                                             <p class="mb-0 mt-4">
