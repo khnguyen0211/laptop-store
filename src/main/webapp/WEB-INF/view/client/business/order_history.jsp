@@ -33,9 +33,6 @@
 
                     <!-- Template Stylesheet -->
                     <link href="/client/css/style.css" rel="stylesheet">
-
-
-
                 </head>
 
                 <body>
@@ -45,23 +42,23 @@
                         <div class="container py-5 mt-5">
                             <div class="table-responsive mt-5">
                                 <table class="table">
-                                    <thead>
+                                    <thead class="text-center">
                                         <tr>
                                             <th scope="col">Order</th>
                                             <th scope="col">Date</th>
-                                            <th scope="col">Price</th>
+                                            <th scope="col">Total Price</th>
                                             <th scope="col">Quantity</th>
                                             <th scope="col">Status</th>
                                             <th scope="col">Action</th>
-
                                         </tr>
                                     </thead>
-                                    <tbody class="text-align: center">
+                                    <tbody>
                                         <c:forEach items="${orders}" var="order" varStatus="status">
                                             <c:set var="index" value="${status.index + 1}" />
-                                            <tr>
-                                                <th scope="row">
-                                                    ${index}
+                                            <tr class="text-center">
+                                                <th scope="row" >
+                                                
+                                                        ${index}
                                                 </th>
                                                 <td>
                                                     <fmt:formatDate value="${order.getCreatedAt()}"
@@ -85,9 +82,8 @@
                                                     <button type="button" class="btn btn-outline-warning">
                                                         <i class="far fa-edit"></i>
                                                     </button>
-                                                    <button type="button"
-                                                        class="btn btn-outline-danger">
-                                                    <i class="fas fa-trash"></i>
+                                                    <button type="button" class="btn btn-outline-danger">
+                                                        <i class="fas fa-trash"></i>
                                                     </button>
                                                 </td>
                                             </tr>

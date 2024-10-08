@@ -2,6 +2,9 @@ package com.project.store.controllers;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,7 +23,9 @@ public class HomePageController {
 
     @GetMapping("")
     public String getHomePage(Model model) {
-        List<Product> products = this.productService.handleFindAllProduct();
+        Pageable pageable = PageRequest.of(0, 8);
+        Page<Product> pageProduct = this.productService.handleFindAllProduct(pageable);
+        List<Product> products = pageProduct.getContent();
         model.addAttribute("products", products);
         return "client/homepage/homepage";
     }

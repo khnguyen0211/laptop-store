@@ -71,7 +71,7 @@ public class OrderController {
 
         model.addAttribute("realCartDetails", realCartDetails);
         model.addAttribute("user", user);
-        return "client/cart/billing";
+        return "client/business/billing";
     }
 
     @PostMapping("/place-order")
@@ -107,7 +107,7 @@ public class OrderController {
         User user = this.utilsService.getSessionUser();
         List<Order> orders = this.orderService.handleGetOrdersByUser(user);
         model.addAttribute("orders", orders);
-        return "client/cart/order_history";
+        return "client/business/order_history";
     }
 
 }

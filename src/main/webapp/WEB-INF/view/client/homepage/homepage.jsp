@@ -7,7 +7,7 @@
 
                 <head>
                     <meta charset="utf-8">
-                    <title>Fruitables - Vegetable Website Template</title>
+                    <title>Laptop-Store Website Template</title>
                     <meta content="width=device-width, initial-scale=1.0" name="viewport">
                     <meta content="" name="keywords">
                     <meta content="" name="description">
@@ -38,8 +38,8 @@
                 <body>
                     <jsp:include page="../layout/header.jsp" />
                     <!-- Hero Start -->
-                    <div class="container-fluid py-5 mb-5 hero-header">
-                        <div class="container py-5">
+                    <div class="container-fluid mb-5 hero-header">
+                        <div class="container ">
                             <div class="row g-5 align-items-center">
                                 <div class="col-md-12 col-lg-7">
                                     <h4 class="mb-3 text-secondary">Cutting-Edge Technology</h4>
@@ -85,43 +85,19 @@
                     </div>
                     <!-- Hero End -->
                     <!-- Fruits Shop Start-->
-                    <div id="product_content" class="container-fluid fruite py-3">
-                        <div class="container py-5">
+                    <div id="product_content" class="container-fluid fruite">
+                        <div class="container">
                             <div class="tab-class text-center">
                                 <div class="row g-4">
                                     <div class="col-lg-4 text-start">
-                                        <h1>Our Organic Products</h1>
+                                        <h1>Outstanding Products</h1>
                                     </div>
                                     <div class="col-lg-8 text-end">
                                         <ul class="nav nav-pills d-inline-flex text-center mb-5">
                                             <li class="nav-item">
-                                                <a class="d-flex m-2 py-2 bg-light rounded-pill active"
-                                                    data-bs-toggle="pill" href="#tab-1">
+                                                <a class="d-flex m-2 py-2 bg-light rounded-pill" data-bs-toggle="pill"
+                                                    href="">
                                                     <span class="text-dark" style="width: 130px;">All Products</span>
-                                                </a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="d-flex py-2 m-2 bg-light rounded-pill" data-bs-toggle="pill"
-                                                    href="#tab-2">
-                                                    <span class="text-dark" style="width: 130px;">Vegetables</span>
-                                                </a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="d-flex m-2 py-2 bg-light rounded-pill" data-bs-toggle="pill"
-                                                    href="#tab-3">
-                                                    <span class="text-dark" style="width: 130px;">Fruits</span>
-                                                </a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="d-flex m-2 py-2 bg-light rounded-pill" data-bs-toggle="pill"
-                                                    href="#tab-4">
-                                                    <span class="text-dark" style="width: 130px;">Bread</span>
-                                                </a>
-                                            </li>
-                                            <li class="nav-item">
-                                                <a class="d-flex m-2 py-2 bg-light rounded-pill" data-bs-toggle="pill"
-                                                    href="#tab-5">
-                                                    <span class="text-dark" style="width: 130px;">Meat</span>
                                                 </a>
                                             </li>
                                         </ul>
@@ -490,7 +466,7 @@
 
                     <!-- Vesitable Shop Start-->
                     <div class="container-fluid vesitable py-3">
-                        <div class="container py-5">
+                        <div class="container">
                             <h1 class="mb-0">Fresh Organic Vegetables</h1>
                             <div class="owl-carousel vegetable-carousel justify-content-center">
                                 <div class="border border-primary rounded position-relative vesitable-item">
@@ -652,8 +628,8 @@
 
 
                     <!-- Bestsaler Product Start -->
-                    <div class="container-fluid py-5">
-                        <div class="container py-5">
+                    <div class="container-fluid">
+                        <div class="container">
                             <div class="text-center mx-auto mb-5" style="max-width: 700px;">
                                 <h1 class="display-4">Bestseller Products</h1>
                                 <p>Latin words, combined with a handful of model sentence structures, to generate Lorem
@@ -819,7 +795,13 @@
 
                         <!-- Features Section Start -->
                         <div class="container-fluid featurs py-5">
-                            <div class="container py-5">
+                            <div class="text-center mx-auto mb-5" style="max-width: 700px;">
+                                <h1 class="display-4">Services</h1>
+                                <p>Latin words, combined with a handful of model sentence structures, to generate Lorem
+                                    Ipsum which
+                                    looks reasonable.</p>
+                            </div>
+                            <div class="container">
                                 <div class="row g-4">
                                     <div class="col-md-6 col-lg-3">
                                         <div class="featurs-item text-center rounded bg-light p-4">
@@ -874,8 +856,8 @@
                         </div>
                         <!-- Features Section End -->
 
-                        <div class="container-fluid testimonial py-5">
-                            <div class="container py-5">
+                        <div class="container-fluid testimonial ">
+                            <div class="container py-2">
                                 <div class="testimonial-header text-center">
                                     <h4 class="text-primary">Our Testimonial</h4>
                                     <h1 class="display-5 mb-5 text-dark">Our Client Saying!</h1>
@@ -1023,14 +1005,20 @@
                                 }, 1000);
                             }
 
-                            const loading = urlParams.get('loading');
+                           const loading = urlParams.get('loading');
                             if (loading == 'true') {
                                 window.onload = function () {
                                     document.getElementById("product_content").scrollIntoView();
                                     showModal();
-                                    hideModal()
+                                    const url = new URL(window.location);
+                                    url.searchParams.delete('loading');
+                                    history.replaceState({}, document.title, url);
+                                    setTimeout(() => {
+                                        hideModal();
+                                    }, 2000); 
                                 };
                             }
+
 
                         </script>
                 </body>

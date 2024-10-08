@@ -80,7 +80,7 @@ public class CartController {
             model.addAttribute("cartDetails", new ArrayList<>());
             model.addAttribute("totalPrice", 0);
             model.addAttribute("cart", new Cart());
-            return "client/cart/cart";
+            return "client/business/cart";
         }
         double totalPrice = 0;
         for (CartDetail cartDetail : user.getCart().getCartDetails()) {
@@ -91,7 +91,7 @@ public class CartController {
         model.addAttribute("cartDetails", user.getCart().getCartDetails());
         model.addAttribute("totalPrice", totalPrice);
         model.addAttribute("cart", user.getCart());
-        return "client/cart/cart";
+        return "client/business/cart";
     }
 
     @PostMapping(value = "/cart-detail/{id}")

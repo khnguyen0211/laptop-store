@@ -59,12 +59,12 @@ public class AuthController {
 
     @GetMapping("/forbidden")
     public String getForbiddenPage(Model model) {
-        return "error_pages/forbidden";
+        return "client/errors/forbidden";
     }
 
     @GetMapping("/page-not-found")
     public String getNotFoundPage(Model model) {
-        return "error_pages/not_found";
+        return "client/errors/not_found";
     }
 
 }

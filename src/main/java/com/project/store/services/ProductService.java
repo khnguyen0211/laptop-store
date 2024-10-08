@@ -1,8 +1,9 @@
 package com.project.store.services;
 
-import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.project.store.domain.Product;
@@ -21,8 +22,8 @@ public class ProductService {
         return this.productRepository.save(product);
     }
 
-    public List<Product> handleFindAllProduct() {
-        return this.productRepository.findAll();
+    public Page<Product> handleFindAllProduct(Pageable pageable) {
+        return this.productRepository.findAll(pageable);
     }
 
     public Product handleFindProductById(long id) {

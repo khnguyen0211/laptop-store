@@ -60,24 +60,29 @@ public class SecurityConfiguration {
         http
                 .authorizeHttpRequests(authorize -> authorize
                 .dispatcherTypeMatchers(DispatcherType.FORWARD,
-                        DispatcherType.INCLUDE)
-                .permitAll()
-                .requestMatchers("/", "/register", "/login", "/products/**",
-                        "/client/**", "/css/**", "/js/**", "/images/**")
-                .permitAll()
-                .requestMatchers("/admin/**").hasRole("ADMIN")
-                .anyRequest().authenticated())
-                .sessionManagement((sessionManagement) -> sessionManagement
-                .sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
-                .invalidSessionUrl("/logout?expired")
-                .maximumSessions(1)
-                .maxSessionsPreventsLogin(false))
-                .logout(logout -> logout.deleteCookies("JSESSIONID").invalidateHttpSession(true))
+                            DispatcherType.INCLUDE)
+                    .permitAll()
+                    .requestMatchers("/", "/register", "/login", "/products/**",
+                            "/client/**", "/css/**", "/js/**", "/images/**")
+                    .permitAll()
+                    .requestMatchers("/admin/**").hasRole("ADMIN")
+                    .anyRequest().authenticated()
+                )
+                .sessionManagement(sessionManagement -> sessionManagement
+                    .sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
+                    .invalidSessionUrl("/logout?expired")
+                    .maximumSessions(1)
+                    .maxSessionsPreventsLogin(false)
+                )
+                    .logout(logout -> logout.deleteCookies("JSESSIONID")
+                    .invalidateHttpSession(true)
+                )
                 .formLogin(formLogin -> formLogin
-                .loginPage("/login")
-                .failureUrl("/login?error")
-                .successHandler(customSuccessHandler())
-                .permitAll())
+                    .loginPage("/login")
+                    .failureUrl("/login?error")
+                    .successHandler(customSuccessHandler())
+                    .permitAll()
+                )
                 .exceptionHandling(ex -> ex.accessDeniedPage("/forbidden"));
 
         return http.build();
