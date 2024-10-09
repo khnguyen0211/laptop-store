@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.project.store.domain.Product;
 import com.project.store.repositories.ProductRepository;
+import com.project.store.services.specifications.ProductSpecification;
 
 @Service
 public class ProductService {
@@ -26,6 +27,14 @@ public class ProductService {
         return this.productRepository.findAll(pageable);
     }
 
+    public Page<Product> handleFindAllProductSpec(Pageable pageable, String name) {
+        return this.productRepository.findAll(ProductSpecification.nameLike(name), pageable);
+    }
+
+    public Page<Product> handleFindAllProductSpec(Pageable pageable, Double minPrice) {
+        return this.productRepository.findAll(ProductSpecification.maxPrice(minPrice), pageable);
+    }
+
     public Product handleFindProductById(long id) {
         Optional<Product> optionalProduct = this.productRepository.findById(id);
         if (!optionalProduct.isPresent()) {
@@ -33,4 +42,5 @@ public class ProductService {
         }
         return optionalProduct.get();
     }
+
 }

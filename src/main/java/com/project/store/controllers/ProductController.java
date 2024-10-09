@@ -27,10 +27,8 @@ public class ProductController {
 
     @GetMapping("admin/product")
     public String getAllProductPage(Model model, @RequestParam(value = "page", required = false, defaultValue = "1") int page) {
-
         Pageable pageable = PageRequest.of(page - 1, 10);
         Page<Product> pageProduct = this.productService.handleFindAllProduct(pageable);
-
         List<Product> products = pageProduct.getContent();
         int totalPage = pageProduct.getTotalPages();
         int currentPage = pageProduct.getNumber();
@@ -51,11 +49,14 @@ public class ProductController {
         this.productService.handleSaveProduct(createProduct);
         return "redirect:/admin/product";
     }
-   
+
     @GetMapping("/products")
-    public String getMethodName(Model model, @RequestParam(value = "page", required = false, defaultValue = "1") int page) {
+    public String getMethodName(Model model,
+            @RequestParam(value = "page", required = false, defaultValue = "1") int page,
+            @RequestParam(value = "name", required = false, defaultValue = "") String name
+    ) {
         Pageable pageable = PageRequest.of(page - 1, 10);
-        Page<Product> pageProduct = this.productService.handleFindAllProduct(pageable);
+        Page<Product> pageProduct = this.productService.handleFindAllProductSpec(pageable, 2000000.0);
         List<Product> products = pageProduct.getContent();
         int totalPage = pageProduct.getTotalPages();
         int currentPage = pageProduct.getNumber();

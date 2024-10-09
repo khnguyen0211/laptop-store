@@ -39,7 +39,7 @@
 
                 <body>
 
-                   
+
                     <jsp:include page="../layout/header.jsp" />
 
                     <!-- Single Product Start -->
@@ -217,8 +217,7 @@
                                                                         value="${product.price}" />
                                                                     đ
                                                                 </p>
-                                                                <form action="/carts/${product.id}"
-                                                                    method="post">
+                                                                <form action="/carts/${product.id}" method="post">
                                                                     <input type="hidden" name="${_csrf.parameterName}"
                                                                         value="${_csrf.token}" />
 
@@ -236,8 +235,9 @@
 
                                             <div class="pagination d-flex justify-content-center mt-5">
                                                 <li class="page-item">
-                                                    <a class="${1 eq currentPage ? 'disabled page-link' : 'page-link'}"
-                                                        href="/products?page=${currentPage - 1}" aria-label="Previous">
+                                                    <a class="page-link ${currentPage eq 1 ? 'disabled' : ''}"
+                                                        href="${currentPage eq 1 ? '#' : '/products?page=${currentPage - 1}'}"
+                                                        aria-label="Previous">
                                                         <span aria-hidden="true">&laquo;</span>
                                                     </a>
                                                 </li>
@@ -250,12 +250,12 @@
                                                     </li>
                                                 </c:forEach>
                                                 <li class="page-item">
-                                                    <a class="${totalPage eq currentPage ? 'disabled page-link' : 'page-link'}"
-                                                        href="/products?page=${currentPage + 1}" aria-label="Next">
+                                                    <a class="page-link ${currentPage eq totalPage ? 'disabled' : ''}"
+                                                        href="${currentPage eq totalPage ? '#' : '/products?page=${currentPage + 1}'}"
+                                                        aria-label="Next">
                                                         <span aria-hidden="true">&raquo;</span>
                                                     </a>
                                                 </li>
-
                                             </div>
                                         </div>
                                     </div>
