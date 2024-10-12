@@ -5,46 +5,77 @@
             <html lang="en">
 
             <head>
-                <meta charset="utf-8" />
-                <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-                <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-                <meta name="description" content=" - Laptop Store" />
-                <meta name="author" content="" />
-                <title>Dashboard - </title>
-                <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
-                <link href="/css/styles.css" rel="stylesheet" />
-                <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
+                <meta charset="utf-8">
+                <title>Laptop-Store Website Template</title>
+                <meta content="width=device-width, initial-scale=1.0" name="viewport">
+                <meta content="" name="keywords">
+                <meta content="" name="description">
+                <!-- Google Web Fonts -->
+                <link rel="preconnect" href="https://fonts.googleapis.com">
+                <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+                <link
+                    href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&family=Raleway:wght@600;800&display=swap"
+                    rel="stylesheet">
+
+                <!-- Icon Font Stylesheet -->
+                <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" />
+                <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css"
+                    rel="stylesheet">
+
+                <!-- Libraries Stylesheet -->
+                <link href="/client/lib/lightbox/css/lightbox.min.css" rel="stylesheet">
+                <link href="/client/lib/owlcarousel/assets/owl.carousel.min.css" rel="stylesheet">
+
+
+                <!-- Customized Bootstrap Stylesheet -->
+                <link href="/client/css/bootstrap.min.css" rel="stylesheet">
+
+                <!-- Template Stylesheet -->
+                <link href="/client/css/style.css" rel="stylesheet">
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+                
+                <script>
+                    $(document).ready(() => {
+                        const avatarFile = $("#avatarFile");
+                        avatarFile.change(function (e) {
+                            const imgURL = URL.createObjectURL(e.target.files[0]);
+                            console.log(imgURL)
+                            $("#avatarPreview").attr("src", imgURL);
+                            $("#avatarPreview").css({ "display": "block" });
+                        });
+                    });
+                </script>
             </head>
 
             <body class="sb-nav-fixed">
                 <jsp:include page="../layout/header.jsp" />
                 <div id="layoutSidenav">
-                    <jsp:include page="../layout/sidebar.jsp" />
+
                     <div id="layoutSidenav_content">
                         <main>
-                            <div class="container-fluid px-4">
-                                <h1 class="mt-4">Dashboard</h1>
-                                <ol class="breadcrumb mb-4">
-                                    <li class="breadcrumb-item active">User Profile</li>
-                                </ol>
-                                <section style="background-color: #eee;"></section>
-                                <div class="container" modelAttribute="user">
-                                    <div class="row">
+                            <div class="container-fluid pt-4">
+                                <div class="container pt-5 mt-5" modelAttribute="user">
+                                    <div class="row pt-5">
                                         <div class="col-lg-4">
                                             <div class="card mb-4">
                                                 <div class="card-body text-center">
                                                     <img src="http://localhost:8080/images/avatar/${user.getAvatar()}"
                                                         alt="avatar" class="rounded-circle img-fluid"
                                                         style="width: 150px;">
+                                                    <img style="max-height: 250px; display: none;" alt="avatar preview"
+                                                        id="avatarPreview" />
                                                     <h5 class="my-3">${user.getFullName()}</h5>
                                                     <p class="text-muted mb-1">Full Stack Developer</p>
                                                     <p class="text-muted mb-4">Bay Area, San Francisco, CA</p>
                                                     <div class="d-flex justify-content-center mb-2">
                                                         <button type="button" data-mdb-button-init data-mdb-ripple-init
-                                                            class="btn btn-primary">Follow</button>
+                                                            class="btn btn-primary form-contro">Follow</button>
                                                         <button type="button" data-mdb-button-init data-mdb-ripple-init
                                                             class="btn btn-outline-primary ms-1">Message</button>
+                                                        <input class="form-control" type="file" id="avatarFile"
+                                                            accept=".png, .jpg, .jpeg" name="imageFile" />
                                                     </div>
+
                                                 </div>
                                             </div>
                                             <div class="card mb-4 mb-lg-0">
@@ -234,17 +265,15 @@
                         <jsp:include page="../layout/footer.jsp" />
                     </div>
                 </div>
-                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
-                    crossorigin="anonymous"></script>
-                <script src="/js/scripts.js"></script>
-                <script>
-                    const phoneElement = document.getElementById('phoneNumber');
-                    let phoneNumber = phoneElement.textContent.trim();
+                <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+                <script src="/client/lib/easing/easing.min.js"></script>
+                <script src="/client/lib/waypoints/waypoints.min.js"></script>
+                <script src="/client/lib/lightbox/js/lightbox.min.js"></script>
+                <script src="/client/lib/owlcarousel/owl.carousel.min.js"></script>
 
-                    const formattedPhone = phoneNumber.replace(/\D/g, '').replace(/(\d{3})(\d{3})(\d{4})/, '($1) $2-$3');
-
-                    phoneElement.textContent = formattedPhone;
-                </script>
+                <!-- Template Javascript -->
+                <script src="/client/js/main.js"></script>
             </body>
 
             </html>

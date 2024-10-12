@@ -21,6 +21,7 @@ import com.project.store.domain.User;
 import com.project.store.services.FileService;
 import com.project.store.services.RoleService;
 import com.project.store.services.UserService;
+import com.project.store.services.UtilsService;
 
 import jakarta.validation.Valid;
 
@@ -30,16 +31,19 @@ public class UserController {
     private final UserService userService;
     private final FileService fileService;
     private final RoleService roleService;
+    private final UtilsService utilsService;
     private final PasswordEncoder passwordEncoder;
 
     public UserController(UserService userService,
             FileService fileService,
             RoleService roleService,
+            UtilsService utilsService,
             PasswordEncoder passwordEncoder) {
         this.userService = userService;
         this.fileService = fileService;
         this.roleService = roleService;
         this.passwordEncoder = passwordEncoder;
+        this.utilsService = utilsService;
     }
 
     @GetMapping("admin/user/create")
@@ -119,6 +123,13 @@ public class UserController {
             this.userService.handleUpdateUser(user);
         }
         return "redirect:/admin/user";
+    }
+
+    @RequestMapping("me")
+    public String getUserDetailPage(Model model) {
+        User user = utilsService.getSessionUser();
+        model.addAttribute("user", user);
+        return "client/account/me";
     }
 
 }

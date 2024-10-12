@@ -8,9 +8,9 @@
                 <meta charset="utf-8" />
                 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
                 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-                <meta name="description" content="Hỏi Dân IT - Dự án laptopshop" />
-                <meta name="author" content="Hỏi Dân IT" />
-                <title>Dashboard - Hỏi Dân IT</title>
+                <meta name="description" content=" - Laptop Store" />
+                <meta name="author" content="" />
+                <title>Dashboard - </title>
                 <link href="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/style.min.css" rel="stylesheet" />
                 <link href="css/styles.css" rel="stylesheet" />
                 <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
@@ -25,7 +25,7 @@
                             class="fas fa-bars"></i></button>
                     <!-- Navbar Search-->
                     <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
-                        <span style="color: white;">Welcome, Hỏi Dân IT</span>
+                        <span style="color: white;">Welcome, </span>
                         <!-- <div class="input-group">
                         <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..."
                             aria-describedby="btnNavbarSearch" />

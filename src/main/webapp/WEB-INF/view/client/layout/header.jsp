@@ -90,8 +90,8 @@
                                                     ${sessionScope.fullName}
                                                 </div>
                                             </li>
-                                            <li><a class="dropdown-item" href="#">Quản lý tài khoản</a></li>
-                                            <li><a class="dropdown-item" href="/order-history">Lịch sử mua hàng</a></li>
+                                            <li><a class="dropdown-item" href="/me">My Account</a></li>
+                                            <li><a class="dropdown-item" href="/order-history">Order History</a></li>
                                             <li>
                                                 <hr class="dropdown-divider">
                                             </li>
