@@ -2,6 +2,7 @@ package com.project.store.controllers;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -69,9 +70,9 @@ public class ProductController {
 
         if (productCriteriaDto.getSort() != null && productCriteriaDto.getSort().isPresent()) {
             String sort = productCriteriaDto.getSort().get();
-            if (sort.equals("gia-tang-dan")) {
+            if (sort.equals("price-increase")) {
                 pageable = PageRequest.of(page - 1, 10, Sort.by(Product_.PRICE).ascending());
-            } else if (sort.equals("gia-giam-dan")) {
+            } else if (sort.equals("price-decrease")) {
                 pageable = PageRequest.of(page - 1, 10, Sort.by(Product_.PRICE).descending());
             }
         }
@@ -82,11 +83,11 @@ public class ProductController {
                 : new ArrayList<>();
 
         String qs = request.getQueryString();
-        if (qs != null && !qs.isBlank()) {
-            qs = qs.replace("page=" + page, "");
+        if (Objects.nonNull(qs) && !qs.isBlank()) {
+            qs = qs.replace(String.format("page=%d", page), "");
         }
-
-        Page<Product> pageProduct = this.productService.handleFindAllProductSpec(pageable, 2000000.0);
+        System.out.println(qs);
+        Page<Product> pageProduct = this.productService.handleFindAllProductSpec(pageable, 0.0);
         int totalPage = pageProduct.getTotalPages();
         int currentPage = pageProduct.getNumber();
         model.addAttribute("products", products);

@@ -121,23 +121,23 @@
                                                 <div class="mb-2"><b>Mức giá</b></div>
                                 
                                                 <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="checkbox" id="price-2" value="duoi-10-trieu">
+                                                    <input class="form-check-input" type="checkbox" id="price-2" value="less-than-10m">
                                                     <label class="form-check-label" for="price-2">Dưới 10 triệu</label>
                                                 </div>
                                 
                                                 <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="checkbox" id="price-3" value="10-15-trieu">
+                                                    <input class="form-check-input" type="checkbox" id="price-3" value="10m-15m">
                                                     <label class="form-check-label" for="price-3">Từ 10 - 15
                                                         triệu</label>
                                                 </div>
                                                 <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="checkbox" id="price-4" value="15-20-trieu">
+                                                    <input class="form-check-input" type="checkbox" id="price-4" value="15m-20m">
                                                     <label class="form-check-label" for="price-4">Từ 15 - 20
                                                         triệu</label>
                                                 </div>
                                 
                                                 <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="checkbox" id="price-5" value="tren-20-trieu">
+                                                    <input class="form-check-input" type="checkbox" id="price-5" value="more-than-20m">
                                                     <label class="form-check-label" for="price-5">Trên 20 triệu</label>
                                                 </div>
                                             </div>
@@ -145,12 +145,12 @@
                                                 <div class="mb-2"><b>Sắp xếp</b></div>
                                 
                                                 <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio" id="sort-1" value="gia-tang-dan" name="radio-sort">
+                                                    <input class="form-check-input" type="radio" id="sort-1" value="price-increase" name="radio-sort">
                                                     <label class="form-check-label" for="sort-1">Giá tăng dần</label>
                                                 </div>
                                 
                                                 <div class="form-check form-check-inline">
-                                                    <input class="form-check-input" type="radio" id="sort-2" value="gia-giam-dan" name="radio-sort">
+                                                    <input class="form-check-input" type="radio" id="sort-2" value="price-decrease" name="radio-sort">
                                                     <label class="form-check-label" for="sort-2">Giá giảm dần</label>
                                                 </div>
                                 
@@ -253,7 +253,6 @@
                     <!-- Back to Top -->
                     <a href="#" class="btn btn-primary border-3 border-primary rounded-circle back-to-top"><i
                             class="fa fa-arrow-up"></i></a>
-
 
                     <!-- JavaScript Libraries -->
                     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>

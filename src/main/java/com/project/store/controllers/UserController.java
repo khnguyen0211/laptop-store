@@ -25,6 +25,7 @@ import com.project.store.services.UtilsService;
 
 import jakarta.validation.Valid;
 
+
 @Controller()
 public class UserController {
 
@@ -132,4 +133,14 @@ public class UserController {
         return "client/account/me";
     }
 
+    @PostMapping("me/avatar")
+    public String postMethodName(@RequestParam("hiddenAvatarFile") MultipartFile file) {
+        User user = this.utilsService.getSessionUser();
+        String targetFolder = "avatar";
+        String avatar = this.fileService.handleUploadFile(file, targetFolder);
+        user.setAvatar(avatar);
+        System.out.println(avatar);
+        return "redirect:/me";
+    }
+    
 }

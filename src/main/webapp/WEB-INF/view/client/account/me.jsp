@@ -33,15 +33,24 @@
                 <!-- Template Stylesheet -->
                 <link href="/client/css/style.css" rel="stylesheet">
                 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-                
+
                 <script>
                     $(document).ready(() => {
                         const avatarFile = $("#avatarFile");
                         avatarFile.change(function (e) {
                             const imgURL = URL.createObjectURL(e.target.files[0]);
-                            console.log(imgURL)
                             $("#avatarPreview").attr("src", imgURL);
                             $("#avatarPreview").css({ "display": "block" });
+
+                            if (this.files && this.files.length > 0) {
+                                var myModal = new bootstrap.Modal(document.getElementById('confirmationModal'));
+                                myModal.show();
+                                document.getElementById('hiddenAvatarFile').files = this.files;
+                            }
+                            document.getElementById('confirmButton').addEventListener('click', function () {
+                                $("#avatar").attr("src", imgURL);
+                                myModal.hide();
+                            });
                         });
                     });
                 </script>
@@ -60,22 +69,58 @@
                                             <div class="card mb-4">
                                                 <div class="card-body text-center">
                                                     <img src="http://localhost:8080/images/avatar/${user.getAvatar()}"
-                                                        alt="avatar" class="rounded-circle img-fluid"
+                                                        id="avatar" alt="avatar" class="rounded-circle img-fluid"
                                                         style="width: 150px;">
-                                                    <img style="max-height: 250px; display: none;" alt="avatar preview"
-                                                        id="avatarPreview" />
                                                     <h5 class="my-3">${user.getFullName()}</h5>
                                                     <p class="text-muted mb-1">Full Stack Developer</p>
                                                     <p class="text-muted mb-4">Bay Area, San Francisco, CA</p>
                                                     <div class="d-flex justify-content-center mb-2">
                                                         <button type="button" data-mdb-button-init data-mdb-ripple-init
-                                                            class="btn btn-primary form-contro">Follow</button>
-                                                        <button type="button" data-mdb-button-init data-mdb-ripple-init
-                                                            class="btn btn-outline-primary ms-1">Message</button>
-                                                        <input class="form-control" type="file" id="avatarFile"
+                                                            class="btn btn-primary form-contro">
+                                                            Follow
+                                                        </button>
+                                                        <label for="avatarFile"
+                                                            class="custom-file-button btn btn-outline-primary ms-2">
+                                                            Avatar
+                                                        </label>
+                                                        <input style="display: none" type="file" id="avatarFile"
                                                             accept=".png, .jpg, .jpeg" name="imageFile" />
                                                     </div>
-
+                                                </div>
+                                            </div>
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="confirmationModal" tabindex="-1"
+                                                aria-labelledby="confirmationModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="confirmationModalLabel">
+                                                                Xác nhận</h5>
+                                                            <button type="button" class="btn-close"
+                                                                data-bs-dismiss="modal" aria-label="Close"></button>
+                                                        </div>
+                                                        <div class="modal-body text-center">
+                                                            <h5 class="modal-title mb-2">Bạn có chắc chắn muốn tải
+                                                                ảnh
+                                                                này
+                                                                lên không?</h5>
+                                                            <div class="col-12 mb-2">
+                                                                <img style="max-height: 250px; display: none;  margin: 0 auto;"
+                                                                    alt="avatar preview" id="avatarPreview" />
+                                                            </div>
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary"
+                                                                data-bs-dismiss="modal">Cancel</button>
+                                                            <form:form action="me/avatar" method="post"
+                                                                enctype="multipart/form-data">
+                                                                <input style="display: none" type="file"
+                                                                    id="hiddenAvatarFile" name="hiddenAvatarFile" />
+                                                                <button id="confirmButton" type="submit"
+                                                                    class="btn btn-primary">OK</button>
+                                                            </form:form>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="card mb-4 mb-lg-0">

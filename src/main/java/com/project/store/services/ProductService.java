@@ -81,19 +81,19 @@ public class ProductService {
             double max = 0;
 
             switch (p) {
-                case "duoi-10-trieu" -> {
+                case "less-than-10m" -> {
                     min = 1;
                     max = 10000000;
                 }
-                case "10-15-trieu" -> {
+                case "10m-15m" -> {
                     min = 10000000;
                     max = 15000000;
                 }
-                case "15-20-trieu" -> {
+                case "15m-20m" -> {
                     min = 15000000;
                     max = 20000000;
                 }
-                case "tren-20-trieu" -> {
+                case "more-than-20m" -> {
                     min = 20000000;
                     max = 200000000;
                 }
