@@ -45,39 +45,43 @@
                             <div class="row g-5 mt-3">
                                 <!-- Left Section Form -->
                                 <div class="col-md-12 col-lg-6 col-xl-7">
+
                                     <form:form modelAttribute="user"> <!-- Form for Billing Details -->
                                         <div class="form-item" style="display: none;">
                                             <label class="form-label my-3">ID<sup>*</sup></label>
-                                            <form:input type="tel" class="form-control" path="id" />
+                                            <form:input type="tel" id="userId" class="form-control" path="id" />
                                         </div>
+
                                         <div class="form-item">
                                             <label class="form-label my-3">Full Name<sup>*</sup></label>
-                                            <form:input type="tel" class="form-control" path="fullName" />
+                                            <form:input type="tel" id="userFullName" class="form-control"
+                                                path="fullName" />
                                         </div>
                                         <div class="form-item">
                                             <label class="form-label my-3">Email<sup>*</sup></label>
-                                            <form:input type="email" class="form-control" path="email" />
+                                            <form:input type="email" id="userEmail" class="form-control" path="email" />
                                         </div>
                                         <div class="form-item">
                                             <label class="form-label my-3">Phone Number<sup>*</sup></label>
-                                            <form:input type="tel" class="form-control" path="phone" />
+                                            <form:input type="tel" id="userPhone" class="form-control" path="phone" />
                                         </div>
                                         <div class="form-item">
                                             <label class="form-label my-3">Address<sup>*</sup></label>
-                                            <form:input type="text" class="form-control"
+                                            <form:input id="userAddress" type="text" class="form-control"
                                                 placeholder="House Number Street Name" path="address" />
                                         </div>
                                         <div class="form-item">
                                             <label class="form-label my-3">Town/City<sup>*</sup></label>
-                                            <input type="text" class="form-control" value="Ho Chi Minh City">
+                                            <input type="text" id="userCity" class="form-control"
+                                                value="Ho Chi Minh City">
                                         </div>
-                                        <div class="form-check my-3">
+                                        <div id="createAccount" class="form-check my-3">
                                             <input type="checkbox" class="form-check-input" id="Account-1"
                                                 name="Accounts" value="Accounts">
                                             <label class="form-check-label" for="Account-1">Create an account?</label>
                                         </div>
                                         <hr>
-                                        <div class="form-check my-3">
+                                        <div id="shipping" class="form-check my-3">
                                             <input class="form-check-input" type="checkbox" id="Address-1"
                                                 name="Address" value="Address">
                                             <label class="form-check-label" for="Address-1">Ship to a different
@@ -89,6 +93,9 @@
 
                                 <!-- Right Section Form -->
                                 <div class="col-md-12 col-lg-6 col-xl-5">
+                                    <label id="labelStatus" style="display: none;"><button type="button"
+                                            class="btn btn-outline-warning">PENDING</button></label>
+
                                     <form:form action="/place-order" method="post">
                                         <!-- Form for Product Summary and Payment -->
                                         <div class="table-responsive">
@@ -133,8 +140,9 @@
                                         <div
                                             class="row g-4 text-center align-items-center justify-content-center border-bottom pb-3">
                                             <div class="col-12">
-                                                <textarea name="orderNote" class="form-control" spellcheck="false"
-                                                    cols="20" rows="5" placeholder="Order Notes (Optional)"></textarea>
+                                                <textarea id="orderNoteId" name="orderNote" class="form-control"
+                                                    spellcheck="false" cols="20" rows="5"
+                                                    placeholder="Order Notes (Optional)">${orderNote != null ? orderNote : ''}</textarea>
                                             </div>
                                         </div>
                                         <div
@@ -158,7 +166,8 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="row g-4 text-center align-items-center justify-content-center pt-4">
+                                        <div id="placeOrderDiv"
+                                            class="row g-4 text-center align-items-center justify-content-center pt-4">
                                             <button type="submit"
                                                 class="btn border-secondary py-3 px-4 text-uppercase w-100 text-primary">Place
                                                 Order</button>
@@ -181,6 +190,61 @@
 
                     <!-- Template Javascript -->
                     <script src="/client/js/main.js"></script>
+                    <script>
+                        var currentUrl = window.location.href;
+
+                        if (currentUrl.includes("/orders/detail/")) {
+                            var placeOrderDiv = document.getElementById('placeOrderDiv');
+                            if (placeOrderDiv) {
+                                placeOrderDiv.style.display = 'none';
+                            }
+
+                            var placeOrderTextArea = document.getElementById('orderNoteId');
+                            if (placeOrderTextArea) {
+                                placeOrderTextArea.disabled = true;
+                            }
+
+                            var userFullName = document.getElementById('userFullName');
+                            if (userFullName) {
+                                userFullName.disabled = true;
+                            }
+
+                            var userEmail = document.getElementById('userEmail');
+                            if (userEmail) {
+                                userEmail.disabled = true;
+                            }
+
+                            var userPhone = document.getElementById('userPhone');
+                            if (userPhone) {
+                                userPhone.disabled = true;
+                            }
+
+                            var userCity = document.getElementById('userCity');
+                            if (userCity) {
+                                userCity.disabled = true;
+                            }
+
+                            var userAddress = document.getElementById('userAddress');
+                            if (userAddress) {
+                                userAddress.disabled = true;
+                            }
+
+                            var shipping = document.getElementById('shipping');
+                            if (shipping) {
+                                shipping.style.display = 'none';
+                            }
+
+                            var createAccount = document.getElementById('createAccount');
+                            if (createAccount) {
+                                createAccount.style.display = 'none';
+                            }
+                            var labelStatus = document.getElementById('labelStatus');
+                            if (labelStatus) {
+                                labelStatus.style.display = 'block';
+                            }
+                        }
+
+                    </script>
                 </body>
 
 

@@ -34,13 +34,10 @@
                     <!-- Template Stylesheet -->
                     <link href="/client/css/style.css" rel="stylesheet">
 
-
-
                 </head>
 
                 <body>
                     <jsp:include page="../layout/header.jsp" />
-
                     <div class="container-fluid py-5">
                         <div class="container py-5 mt-5">
                             <div class="table-responsive mt-5">
@@ -149,8 +146,6 @@
                                                         showModal();
                                                         hideModal()
                                                     };
-
-
                                                 </script>
 
                                             </c:otherwise>
@@ -170,7 +165,6 @@
                                     </tbody>
                                 </table>
                             </div>
-
 
                             <div class="mt-3 d-flex justify-content-between">
                                 <div>

@@ -139,7 +139,6 @@ public class UserController {
         String targetFolder = "avatar";
         String avatar = this.fileService.handleUploadFile(file, targetFolder);
         user.setAvatar(avatar);
-        System.out.println(avatar);
         return "redirect:/me";
     }
     

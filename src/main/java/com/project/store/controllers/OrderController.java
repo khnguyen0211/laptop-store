@@ -3,10 +3,14 @@ package com.project.store.controllers;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -14,6 +18,7 @@ import com.project.store.domain.Cart;
 import com.project.store.domain.CartDetail;
 import com.project.store.domain.Order;
 import com.project.store.domain.OrderDetail;
+import com.project.store.domain.Order_;
 import com.project.store.domain.User;
 import com.project.store.services.CartService;
 import com.project.store.services.OrderService;
@@ -26,8 +31,6 @@ import jakarta.servlet.http.HttpServletRequest;
 @Controller
 public class OrderController {
 
-    private final ProductService productService;
-    private final UserService userService;
     private final CartService cartService;
     private final UtilsService utilsService;
     private final OrderService orderService;
@@ -39,8 +42,7 @@ public class OrderController {
             OrderService orderService,
             UtilsService utilsService) {
         this.cartService = cartService;
-        this.productService = productService;
-        this.userService = userService;
+
         this.orderService = orderService;
         this.utilsService = utilsService;
     }
@@ -66,8 +68,6 @@ public class OrderController {
         Cart userCart = this.cartService.handleFindCartByUser(user);
         //update price total of cart in database
         userCart.setPrice_total(price_total);
-
-        System.out.println("user cart: " + userCart);
 
         model.addAttribute("realCartDetails", realCartDetails);
         model.addAttribute("user", user);
@@ -105,9 +105,36 @@ public class OrderController {
     @GetMapping("/order-history")
     public String getOrderHistory(Model model) {
         User user = this.utilsService.getSessionUser();
-        List<Order> orders = this.orderService.handleGetOrdersByUser(user);
+        Pageable pageable = PageRequest.of(0, 10, Sort.by(Order_.CREATED_AT).descending());
+
+        List<Order> orders = this.orderService.handleGetOrdersByUser(user, pageable);
         model.addAttribute("orders", orders);
         return "client/business/order_history";
+    }
+
+    @GetMapping("/orders/delete/{id}")
+    public String deleteOrder(@PathVariable("id") long orderId) {
+        this.orderService.handleDeleteOrderById(orderId);
+        return "redirect:/order-history";
+    }
+
+    @GetMapping("/orders/detail/{id}")
+    public String detailOrder(Model model, @PathVariable("id") long orderId) {
+        User user = this.utilsService.getSessionUser();
+        Order order = this.orderService.handleFindOrderById(orderId);
+        List<OrderDetail> orderDetails = order.getOrderDetails();
+        List<CartDetail> realCartDetails = new ArrayList<>();
+        for (OrderDetail orderDetail : orderDetails) {
+            CartDetail cartDetail = new CartDetail();
+            cartDetail.setProduct(orderDetail.getProduct());
+            cartDetail.setPrice_total(orderDetail.getPrice());
+            cartDetail.setQuantity(orderDetail.getQuantity());
+            realCartDetails.add(cartDetail);
+        }
+        model.addAttribute("realCartDetails", realCartDetails);
+        model.addAttribute("user", user);
+        model.addAttribute("orderNote", order.getOrderNote());
+        return "client/business/billing";
     }
 
 }

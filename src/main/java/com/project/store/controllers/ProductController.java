@@ -66,14 +66,14 @@ public class ProductController {
             }
         }
 
-        Pageable pageable = PageRequest.of(page - 1, 10);
+        Pageable pageable = PageRequest.of(page - 1, 9);
 
         if (productCriteriaDto.getSort() != null && productCriteriaDto.getSort().isPresent()) {
             String sort = productCriteriaDto.getSort().get();
             if (sort.equals("price-increase")) {
-                pageable = PageRequest.of(page - 1, 10, Sort.by(Product_.PRICE).ascending());
+                pageable = PageRequest.of(page - 1, 9, Sort.by(Product_.PRICE).ascending());
             } else if (sort.equals("price-decrease")) {
-                pageable = PageRequest.of(page - 1, 10, Sort.by(Product_.PRICE).descending());
+                pageable = PageRequest.of(page - 1, 9, Sort.by(Product_.PRICE).descending());
             }
         }
 
