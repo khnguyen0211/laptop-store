@@ -64,7 +64,7 @@ public class AuthController {
 
     @GetMapping("/page-not-found")
     public String getNotFoundPage(Model model) {
-        return "client/errors/not_found";
+        return "client/errors/not-found";
     }
 
 }

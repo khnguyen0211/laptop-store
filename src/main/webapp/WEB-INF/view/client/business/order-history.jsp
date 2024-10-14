@@ -65,7 +65,6 @@
                                                         <td>
                                                             <fmt:formatDate value="${order.getCreatedAt()}"
                                                                 pattern="dd-MM-yyyy HH:mm:ss" />
-
                                                         </td>
                                                         <td>
                                                             <b>${order.getProductTotal()}</b> product(s)

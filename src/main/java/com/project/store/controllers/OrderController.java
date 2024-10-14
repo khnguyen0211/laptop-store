@@ -1,8 +1,10 @@
 package com.project.store.controllers;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.project.store.constants.Constant;
 import com.project.store.domain.Cart;
 import com.project.store.domain.CartDetail;
 import com.project.store.domain.Order;
@@ -42,7 +45,6 @@ public class OrderController {
             OrderService orderService,
             UtilsService utilsService) {
         this.cartService = cartService;
-
         this.orderService = orderService;
         this.utilsService = utilsService;
     }
@@ -105,11 +107,12 @@ public class OrderController {
     @GetMapping("/order-history")
     public String getOrderHistory(Model model) {
         User user = this.utilsService.getSessionUser();
-        Pageable pageable = PageRequest.of(0, 10, Sort.by(Order_.CREATED_AT).descending());
+        Pageable pageable = PageRequest.of(0, 10, Sort.by(Order_.UPDATED_AT).descending());
 
-        List<Order> orders = this.orderService.handleGetOrdersByUser(user, pageable);
+        Page<Order> orderPage = this.orderService.handleGetOrdersByUser(user, pageable);
+        List<Order> orders = orderPage.getContent();
         model.addAttribute("orders", orders);
-        return "client/business/order_history";
+        return "client/business/order-history";
     }
 
     @GetMapping("/orders/delete/{id}")
@@ -135,6 +138,54 @@ public class OrderController {
         model.addAttribute("user", user);
         model.addAttribute("orderNote", order.getOrderNote());
         return "client/business/billing";
+    }
+
+    @GetMapping("/admin/orders")
+    public String getAllOrders(Model model, @RequestParam(value = "page", required = false, defaultValue = "1") int page) {
+        Pageable pageable = PageRequest.of(page - 1, 2, Sort.by(Order_.UPDATED_AT).descending());
+        Page<Order> pageOrder = this.orderService.handleGetAllOrder(pageable);
+        List<Order> orders = pageOrder.getContent();
+        int totalPage = pageOrder.getTotalPages();
+        int currentPage = pageOrder.getNumber();
+        model.addAttribute("currentPage", currentPage + 1);
+        model.addAttribute("totalPage", totalPage);
+        model.addAttribute("orderList", orders);
+        return "admin/order/table-order";
+    }
+
+    @PostMapping("/admin/orders/status")
+    public String changeOrderStatus(@RequestParam("status") String status,
+            @RequestParam("orderId") String orderId) {
+        if (orderId != null) {
+            long id = Long.parseLong(orderId);
+            Order order = this.orderService.handleFindOrderById(id);
+            switch (status) {
+                case "PENDING" ->
+                    order.setStatus(Constant.PENDING);
+                case "PROCESSING" ->
+                    order.setStatus(Constant.PROCESSING);
+                case "SHIPPING" ->
+                    order.setStatus(Constant.SHIPPING);
+                case "COMPLETED" ->
+                    order.setStatus(Constant.COMPLETED);
+                case "CANCELED" ->
+                    order.setStatus(Constant.CANCELED);
+                default ->
+                    order.setStatus(Constant.PENDING);
+            }
+            order.setUpdatedAt(new Date());
+        }
+        return "redirect:/admin/orders";
+    }
+
+    @PostMapping("/admin/orders/delete")
+    public String deleteOrder(@RequestParam("orderId") String orderId) {
+        if(orderId != null) {
+            long id = Long.parseLong(orderId);
+            Order order = this.orderService.handleFindOrderById(id);
+            order.setStatus(Constant.DELETED);
+        }
+        return "redirect:/admin/orders";
     }
 
 }

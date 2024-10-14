@@ -34,7 +34,7 @@ public class ProductController {
 
     @GetMapping("admin/product")
     public String getAllProductPage(Model model, @RequestParam(value = "page", required = false, defaultValue = "1") int page) {
-        Pageable pageable = PageRequest.of(page - 1, 10);
+        Pageable pageable = PageRequest.of(page - 1, 2);
         Page<Product> pageProduct = this.productService.handleFindAllProduct(pageable);
         List<Product> products = pageProduct.getContent();
         int totalPage = pageProduct.getTotalPages();
@@ -76,9 +76,7 @@ public class ProductController {
                 pageable = PageRequest.of(page - 1, 9, Sort.by(Product_.PRICE).descending());
             }
         }
-
         Page<Product> prs = this.productService.fetchProductsWithSpec(pageable, productCriteriaDto);
-
         List<Product> products = !prs.getContent().isEmpty() ? prs.getContent()
                 : new ArrayList<>();
 

@@ -3,7 +3,9 @@ package com.project.store.services;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import com.project.store.domain.Order;
@@ -11,6 +13,7 @@ import com.project.store.domain.OrderDetail;
 import com.project.store.domain.User;
 import com.project.store.repositories.OrderDetailRepository;
 import com.project.store.repositories.OrderRepository;
+import com.project.store.services.specifications.OrderSpecification;
 
 @Service
 public class OrderService {
@@ -23,8 +26,11 @@ public class OrderService {
         this.orderRepository = orderRepository;
     }
 
-    public List<Order> handleGetOrdersByUser(User user, Pageable pageable ) {
-        return this.orderRepository.findByUser(user, pageable);
+    public Page<Order> handleGetOrdersByUser(User user, Pageable pageable) {
+        Specification<Order> combinedSpec = Specification.where(null);
+        combinedSpec = combinedSpec.and(OrderSpecification.userFilter(user));
+        combinedSpec = combinedSpec.and(OrderSpecification.statusFilter());
+        return this.orderRepository.findAll(combinedSpec, pageable);
     }
 
     public OrderDetail handleSaveOrderDetail(OrderDetail orderDetail) {
@@ -37,9 +43,9 @@ public class OrderService {
 
     public void handleDeleteOrderById(long id) {
         Order order = handleFindOrderById(id);
-        if(order != null) {
+        if (order != null) {
             List<OrderDetail> orderDetails = order.getOrderDetails();
-            for(OrderDetail orderDetail : orderDetails) {
+            for (OrderDetail orderDetail : orderDetails) {
                 handleDeleteOrderDetail(orderDetail);
             }
             this.orderRepository.delete(order);
@@ -56,6 +62,10 @@ public class OrderService {
 
     public void handleDeleteOrderDetail(OrderDetail orderDetail) {
         this.orderDetailRepository.delete(orderDetail);
+    }
+
+    public Page<Order> handleGetAllOrder(Pageable pageable) {
+        return this.orderRepository.findAll(pageable);
     }
 
 }
